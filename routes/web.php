@@ -84,3 +84,36 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::match(['put', 'patch'], '/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::match(['put', 'patch'], '/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
 });
+
+// Remote Database Migration & Setup Utility for Vercel Serverless
+Route::get('/artisan/migrate', function (\Illuminate\Http\Request $request) {
+    $expectedKey = env('APP_KEY');
+    if (!$expectedKey || $request->query('key') !== $expectedKey) {
+        abort(403, 'Unauthorized. Please provide valid ?key=APP_KEY parameter.');
+    }
+
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        $migrateOutput = \Illuminate\Support\Facades\Artisan::output();
+
+        if ($request->boolean('seed', true)) {
+            \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
+            $seedOutput = \Illuminate\Support\Facades\Artisan::output();
+        } else {
+            $seedOutput = 'Seeding skipped.';
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Database successfully migrated and seeded!',
+            'migrate_output' => $migrateOutput,
+            'seed_output' => $seedOutput,
+        ]);
+    } catch (\Throwable $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => $e->getMessage(),
+            'trace' => $e->getTraceAsString(),
+        ], 500);
+    }
+});
