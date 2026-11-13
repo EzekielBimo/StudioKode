@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        color-scheme: dark;
+        scroll-behavior: smooth;
+        background-color: #0B0E0C;
+        color: #F4F6F0;
+        font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+
+    ::selection {
+        background-color: #1C3024;
+        color: #F4F6F0;
+    }
+
+    h1, h2, h3, h4, .font-serif {
+        font-family: 'Cormorant Garamond', Georgia, serif;
+    }
+}
+
+@layer utilities {
+    .glass-moss {
+        background-color: rgba(20, 32, 24, 0.65);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    }
+    .glass-obsidian {
+        background-color: rgba(14, 19, 16, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+}

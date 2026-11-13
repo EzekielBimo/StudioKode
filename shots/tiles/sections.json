@@ -1,0 +1,234 @@
+{
+ "url": "http://127.0.0.1:8085/",
+ "views": {
+  "desktop": {
+   "width": 1440,
+   "height": 900,
+   "navH": 0,
+   "scrollHeight": 2917,
+   "screens": 3.24,
+   "sections": [
+    {
+     "n": 1,
+     "tag": "section",
+     "id": "",
+     "cls": "relative min-h-[85vh] flex items-center justify-center bg-gr",
+     "top": 0,
+     "h": 765,
+     "hScreens": 0.85,
+     "offGrid": 765,
+     "tiles": [
+      {
+       "file": "desktop-sec-01-a.jpg",
+       "scrollY": 0
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "tag": "section",
+     "id": "",
+     "cls": "border-b border-white/10 bg-[rgba(20,32,24,0.45)] backdrop-b",
+     "top": 765,
+     "h": 157,
+     "hScreens": 0.17,
+     "offGrid": 157,
+     "tiles": [
+      {
+       "file": "desktop-sec-02-a.jpg",
+       "scrollY": 765
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "tag": "section",
+     "id": "",
+     "cls": "max-w-7xl mx-auto px-6 py-24",
+     "top": 922,
+     "h": 685,
+     "hScreens": 0.76,
+     "offGrid": 685,
+     "tiles": [
+      {
+       "file": "desktop-sec-03-a.jpg",
+       "scrollY": 922
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "tag": "section",
+     "id": "",
+     "cls": "bg-[#0E1310] border-y border-white/10 text-[#F4F2ED] py-24",
+     "top": 1607,
+     "h": 511,
+     "hScreens": 0.57,
+     "offGrid": 511,
+     "tiles": [
+      {
+       "file": "desktop-sec-04-a.jpg",
+       "scrollY": 1607
+      }
+     ]
+    },
+    {
+     "n": 5,
+     "tag": "section",
+     "id": "",
+     "cls": "max-w-4xl mx-auto px-6 py-24 text-center space-y-6",
+     "top": 2119,
+     "h": 414,
+     "hScreens": 0.46,
+     "offGrid": 414,
+     "tiles": [
+      {
+       "file": "desktop-sec-05-a.jpg",
+       "scrollY": 2017,
+       "cutTop": 102,
+       "height": 414
+      }
+     ]
+    },
+    {
+     "n": 6,
+     "tag": "footer",
+     "id": "",
+     "cls": "mt-auto bg-[#080B09] text-[#F4F6F0] py-16 border-t border-wh",
+     "top": 2533,
+     "h": 384,
+     "hScreens": 0.43,
+     "offGrid": 384,
+     "tiles": [
+      {
+       "file": "desktop-sec-06-a.jpg",
+       "scrollY": 2017,
+       "cutTop": 516,
+       "height": 384
+      }
+     ]
+    }
+   ],
+   "consoleErrors": []
+  },
+  "mobile": {
+   "width": 375,
+   "height": 812,
+   "navH": 0,
+   "scrollHeight": 4714,
+   "screens": 5.81,
+   "sections": [
+    {
+     "n": 1,
+     "tag": "section",
+     "id": "",
+     "cls": "relative min-h-[85vh] flex items-center justify-center bg-gr",
+     "top": 0,
+     "h": 690,
+     "hScreens": 0.85,
+     "offGrid": 690,
+     "tiles": [
+      {
+       "file": "mobile-sec-01-a.jpg",
+       "scrollY": 0
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "tag": "section",
+     "id": "",
+     "cls": "border-b border-white/10 bg-[rgba(20,32,24,0.45)] backdrop-b",
+     "top": 690,
+     "h": 273,
+     "hScreens": 0.34,
+     "offGrid": 273,
+     "tiles": [
+      {
+       "file": "mobile-sec-02-a.jpg",
+       "scrollY": 690
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "tag": "section",
+     "id": "",
+     "cls": "max-w-7xl mx-auto px-6 py-24",
+     "top": 963,
+     "h": 1383,
+     "hScreens": 1.7,
+     "offGrid": 571,
+     "tiles": [
+      {
+       "file": "mobile-sec-03-a.jpg",
+       "scrollY": 963
+      },
+      {
+       "file": "mobile-sec-03-b.jpg",
+       "scrollY": 1534
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "tag": "section",
+     "id": "",
+     "cls": "bg-[#0E1310] border-y border-white/10 text-[#F4F2ED] py-24",
+     "top": 2346,
+     "h": 958,
+     "hScreens": 1.18,
+     "offGrid": 146,
+     "tiles": [
+      {
+       "file": "mobile-sec-04-a.jpg",
+       "scrollY": 2346
+      },
+      {
+       "file": "mobile-sec-04-b.jpg",
+       "scrollY": 2492
+      }
+     ]
+    },
+    {
+     "n": 5,
+     "tag": "section",
+     "id": "",
+     "cls": "max-w-4xl mx-auto px-6 py-24 text-center space-y-6",
+     "top": 3304,
+     "h": 490,
+     "hScreens": 0.6,
+     "offGrid": 490,
+     "tiles": [
+      {
+       "file": "mobile-sec-05-a.jpg",
+       "scrollY": 3304
+      }
+     ]
+    },
+    {
+     "n": 6,
+     "tag": "footer",
+     "id": "",
+     "cls": "mt-auto bg-[#080B09] text-[#F4F6F0] py-16 border-t border-wh",
+     "top": 3794,
+     "h": 920,
+     "hScreens": 1.13,
+     "offGrid": 108,
+     "tiles": [
+      {
+       "file": "mobile-sec-06-a.jpg",
+       "scrollY": 3794
+      },
+      {
+       "file": "mobile-sec-06-b.jpg",
+       "scrollY": 3902
+      }
+     ]
+    }
+   ],
+   "consoleErrors": []
+  }
+ },
+ "at": "2026-11-11T10:22:14.743Z"
+}
