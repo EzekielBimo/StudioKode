@@ -16,14 +16,13 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', (function () {
-        if (env('POSTGRES_URL')) return 'pgsql';
-        $url = env('DATABASE_URL', '');
+    'default' => (function () {
+        $url = env('POSTGRES_URL') ?: env('DATABASE_URL', '');
         if (str_starts_with($url, 'postgres://') || str_starts_with($url, 'postgresql://')) {
             return 'pgsql';
         }
-        return 'mysql';
-    })()),
+        return env('DB_CONNECTION', 'mysql');
+    })(),
 
     /*
     |--------------------------------------------------------------------------
@@ -48,7 +47,13 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'url' => env('DATABASE_URL', env('DB_URL')),
+            'url' => (function () {
+                $url = env('DATABASE_URL', env('DB_URL'));
+                if ($url && (str_starts_with($url, 'postgres://') || str_starts_with($url, 'postgresql://'))) {
+                    return null;
+                }
+                return $url;
+            })(),
             'host' => env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'laravel'),
@@ -88,17 +93,23 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'url' => env('DATABASE_URL', env('POSTGRES_URL', env('DB_URL'))),
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', '5432'),
-            'database' => env('DB_DATABASE', 'laravel'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', ''),
+            'url' => (function () {
+                $url = env('POSTGRES_URL') ?: (env('DATABASE_URL') ?: env('DB_URL'));
+                if ($url) {
+                    return preg_replace('/(:3306)([\/?#]|$)/', ':5432$2', $url);
+                }
+                return null;
+            })(),
+            'host' => env('DB_HOST', env('POSTGRES_HOST', env('PGHOST', '127.0.0.1'))),
+            'port' => env('PGPORT', (env('DB_PORT') && env('DB_PORT') != '3306') ? env('DB_PORT') : '5432'),
+            'database' => env('DB_DATABASE', env('POSTGRES_DATABASE', env('PGDATABASE', 'laravel'))),
+            'username' => env('DB_USERNAME', env('POSTGRES_USER', env('PGUSER', 'root'))),
+            'password' => env('DB_PASSWORD', env('POSTGRES_PASSWORD', env('PGPASSWORD', ''))),
             'charset' => env('DB_CHARSET', 'utf8'),
             'prefix' => '',
             'prefix_indexes' => true,
             'search_path' => 'public',
-            'sslmode' => 'prefer',
+            'sslmode' => env('DB_SSLMODE', 'require'),
         ],
 
         'sqlsrv' => [

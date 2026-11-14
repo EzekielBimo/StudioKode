@@ -37,8 +37,12 @@ class ProjectController extends Controller
                 $query->orderBy('year', 'asc')->orderBy('id', 'asc');
                 break;
             case 'area_desc':
-                // Cross-database numeric area sorting (works on MySQL and SQLite)
-                $query->orderByRaw("(REPLACE(REPLACE(REPLACE(area_size, ' m²', ''), ',', ''), ' ', '') + 0) DESC");
+                // Cross-database numeric area sorting (PostgreSQL, MySQL, and SQLite)
+                if (\Illuminate\Support\Facades\DB::getDriverName() === 'pgsql') {
+                    $query->orderByRaw("CAST(NULLIF(REGEXP_REPLACE(area_size, '[^0-9]', '', 'g'), '') AS INTEGER) DESC");
+                } else {
+                    $query->orderByRaw("(REPLACE(REPLACE(REPLACE(area_size, ' m²', ''), ',', ''), ' ', '') + 0) DESC");
+                }
                 break;
             case 'newest':
             default:

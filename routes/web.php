@@ -93,21 +93,126 @@ Route::get('/artisan/migrate', function (\Illuminate\Http\Request $request) {
     }
 
     try {
-        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
-        $migrateOutput = \Illuminate\Support\Facades\Artisan::output();
+        config(['cache.default' => 'array']);
 
+        if ($request->boolean('status')) {
+            $tables = \Illuminate\Support\Facades\DB::select("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'");
+            $sequences = \Illuminate\Support\Facades\DB::select("SELECT sequence_name FROM information_schema.sequences WHERE sequence_schema = 'public'");
+            $migrations = \Illuminate\Support\Facades\Schema::hasTable('migrations')
+                ? \Illuminate\Support\Facades\DB::table('migrations')->pluck('migration')->all()
+                : [];
+            return response()->json([
+                'status' => 'success',
+                'tables' => array_column($tables, 'table_name'),
+                'sequences' => array_column($sequences, 'sequence_name'),
+                'migrations' => $migrations,
+            ]);
+        }
+
+        if ($request->boolean('fresh', false)) {
+            \Illuminate\Support\Facades\DB::unprepared("
+                DO $$ DECLARE
+                    r RECORD;
+                BEGIN
+                    FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
+                        EXECUTE 'DROP TABLE IF EXISTS public.' || quote_ident(r.tablename) || ' CASCADE';
+                    END LOOP;
+                    FOR r IN (SELECT sequence_name FROM information_schema.sequences WHERE sequence_schema = 'public') LOOP
+                        EXECUTE 'DROP SEQUENCE IF EXISTS public.' || quote_ident(r.sequence_name) || ' CASCADE';
+                    END LOOP;
+                END $$;
+            ");
+        }
+
+        // Ensure migrations table exists
+        if (!\Illuminate\Support\Facades\Schema::hasTable('migrations')) {
+            \Illuminate\Support\Facades\Schema::create('migrations', function (\Illuminate\Database\Schema\Blueprint $table) {
+                $table->increments('id');
+                $table->string('migration');
+                $table->integer('batch');
+            });
+        }
+
+        $migrationFiles = [
+            '0001_01_01_000000_create_users_table' => function() {
+                if (!\Illuminate\Support\Facades\Schema::hasTable('users')) {
+                    $m = require database_path('migrations/0001_01_01_000000_create_users_table.php');
+                    $m->up();
+                }
+            },
+            '0001_01_01_000001_create_cache_table' => function() {
+                if (!\Illuminate\Support\Facades\Schema::hasTable('cache')) {
+                    $m = require database_path('migrations/0001_01_01_000001_create_cache_table.php');
+                    $m->up();
+                } elseif (!\Illuminate\Support\Facades\Schema::hasTable('cache_locks')) {
+                    \Illuminate\Support\Facades\Schema::create('cache_locks', function (\Illuminate\Database\Schema\Blueprint $table) {
+                        $table->string('key')->primary();
+                        $table->string('owner');
+                        $table->integer('expiration');
+                    });
+                }
+            },
+            '0001_01_01_000002_create_jobs_table' => function() {
+                if (!\Illuminate\Support\Facades\Schema::hasTable('jobs')) {
+                    $m = require database_path('migrations/0001_01_01_000002_create_jobs_table.php');
+                    $m->up();
+                }
+            },
+            '2024_01_01_000001_create_projects_table' => function() {
+                if (!\Illuminate\Support\Facades\Schema::hasTable('projects')) {
+                    $m = require database_path('migrations/2024_01_01_000001_create_projects_table.php');
+                    $m->up();
+                }
+            },
+            '2024_01_01_000002_create_project_images_table' => function() {
+                if (!\Illuminate\Support\Facades\Schema::hasTable('project_images')) {
+                    $m = require database_path('migrations/2024_01_01_000002_create_project_images_table.php');
+                    $m->up();
+                }
+            },
+            '2024_01_01_000003_create_inquiries_table' => function() {
+                if (!\Illuminate\Support\Facades\Schema::hasTable('inquiries')) {
+                    $m = require database_path('migrations/2024_01_01_000003_create_inquiries_table.php');
+                    $m->up();
+                }
+            },
+            '2024_01_02_000001_add_performance_composite_indexes' => function() {
+                $m = require database_path('migrations/2024_01_02_000001_add_performance_composite_indexes.php');
+                $m->up();
+            },
+        ];
+
+        $results = [];
+        foreach ($migrationFiles as $name => $closure) {
+            $exists = \Illuminate\Support\Facades\DB::table('migrations')
+                ->where('migration', $name)
+                ->exists();
+            if (!$exists) {
+                $closure();
+                \Illuminate\Support\Facades\DB::table('migrations')->insert([
+                    'migration' => $name,
+                    'batch' => 1,
+                ]);
+                $results[] = "$name: applied";
+            } else {
+                $results[] = "$name: already migrated";
+            }
+        }
+
+        $seedOutput = '';
         if ($request->boolean('seed', true)) {
             \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
             $seedOutput = \Illuminate\Support\Facades\Artisan::output();
-        } else {
-            $seedOutput = 'Seeding skipped.';
         }
+
+        $tables = \Illuminate\Support\Facades\DB::select("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'");
 
         return response()->json([
             'status' => 'success',
             'message' => 'Database successfully migrated and seeded!',
-            'migrate_output' => $migrateOutput,
+            'migrations' => $results,
             'seed_output' => $seedOutput,
+            'tables' => array_column($tables, 'table_name'),
         ]);
     } catch (\Throwable $e) {
         return response()->json([

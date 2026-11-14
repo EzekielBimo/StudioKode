@@ -19,7 +19,7 @@ class DashboardController extends Controller
         $projectStats = Project::query()
             ->selectRaw("
                 COUNT(*) as total_projects,
-                SUM(CASE WHEN is_featured = 1 THEN 1 ELSE 0 END) as featured_projects,
+                SUM(CASE WHEN is_featured = true THEN 1 ELSE 0 END) as featured_projects,
                 SUM(CASE WHEN published_at IS NOT NULL AND published_at <= ? THEN 1 ELSE 0 END) as published_projects
             ", [now()])
             ->first();

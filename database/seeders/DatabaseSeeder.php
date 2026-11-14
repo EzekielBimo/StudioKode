@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
     {
         // Disable foreign key constraints during clean reseeding
         Schema::disableForeignKeyConstraints();
-        ProjectImage::truncate();
-        Project::truncate();
-        Inquiry::truncate();
+        ProjectImage::query()->delete();
+        Project::query()->delete();
+        Inquiry::query()->delete();
         Schema::enableForeignKeyConstraints();
 
         // Seed default administrator account idempotently
