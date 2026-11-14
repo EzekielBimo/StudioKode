@@ -19,7 +19,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
-COPY vite.config.mjs postcss.config.js tailwind.config.js ./
+COPY vite.config.* postcss.config.js tailwind.config.js ./
 COPY resources ./resources
 RUN npm run build
 
@@ -39,14 +39,17 @@ COPY . .
 
 COPY Caddyfile /etc/caddy/Caddyfile
 
-# Ensure writable directories exist and clean stale bootstrap caches
+# Ensure writable directories exist, create storage link, and clean stale bootstrap caches
 RUN rm -rf bootstrap/cache/*.php \
     && mkdir -p storage/framework/cache/data \
              storage/framework/sessions \
              storage/framework/views \
              storage/logs \
+             storage/app/public \
              bootstrap/cache \
-    && chmod -R 777 storage bootstrap/cache
+    && chmod -R 777 storage bootstrap/cache \
+    && rm -rf public/storage \
+    && php artisan storage:link || true
 
 # Generate clean package manifest and clear stale caches
 RUN php artisan package:discover --ansi || true
