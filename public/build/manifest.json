@@ -77,7 +77,7 @@
     "name": "vendor-react"
   },
   "resources/css/app.css": {
-    "file": "assets/app-WUswRWMw.css",
+    "file": "assets/app-ewL-GfyR.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -234,7 +234,7 @@
     ]
   },
   "resources/js/Pages/Projects/Index.jsx": {
-    "file": "assets/Index-Dxb_aef4.js",
+    "file": "assets/Index-GCtihwqK.js",
     "name": "Index",
     "src": "resources/js/Pages/Projects/Index.jsx",
     "isDynamicEntry": true,
@@ -275,7 +275,7 @@
     ]
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-DfvQ-zMb.js",
+    "file": "assets/app-Cdu2Sq9R.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,

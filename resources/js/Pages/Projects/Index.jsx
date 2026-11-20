@@ -128,7 +128,7 @@ export default function ProjectsIndex({
                     <div
                         role="tablist"
                         aria-label="Filter projects by discipline"
-                        className="inline-flex p-1 rounded-full bg-[#121814]/90 border border-white/15 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_4px_16px_rgba(0,0,0,0.3)] max-w-full overflow-x-auto"
+                        className="inline-flex p-1 rounded-full bg-[#121814]/90 border border-white/15 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_4px_16px_rgba(0,0,0,0.3)] max-w-full overflow-x-auto no-scrollbar scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden overscroll-x-contain"
                     >
                         {categoryTabs.map((tab) => {
                             const isSelected = activeCategory === tab.id;
@@ -139,7 +139,7 @@ export default function ProjectsIndex({
                                     type="button"
                                     aria-selected={isSelected}
                                     onClick={() => handleCategoryChange(tab.id)}
-                                    className={`relative px-4 py-2 rounded-full text-xs uppercase tracking-widest transition-all duration-200 whitespace-nowrap focus:outline-none flex items-center gap-2 cursor-pointer ${
+                                    className={`relative px-4 py-2 rounded-full text-xs uppercase tracking-widest transition-all duration-200 whitespace-nowrap focus:outline-none flex items-center gap-2 cursor-pointer shrink-0 ${
                                         isSelected
                                             ? 'bg-[#1C3024] text-[#F4F6F0] border border-emerald-500/40 shadow-[0_0_12px_rgba(52,211,153,0.18),inset_0_1px_0_rgba(255,255,255,0.15)] font-semibold'
                                             : 'text-[#A8B0A6]/75 hover:text-[#F4F2ED] hover:bg-white/5 border border-transparent font-medium'
