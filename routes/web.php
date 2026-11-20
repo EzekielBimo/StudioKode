@@ -179,6 +179,12 @@ Route::get('/artisan/migrate', function (\Illuminate\Http\Request $request) {
                 $m = require database_path('migrations/2024_01_02_000001_add_performance_composite_indexes.php');
                 $m->up();
             },
+            '2024_01_03_000001_add_category_to_projects_table' => function() {
+                if (!\Illuminate\Support\Facades\Schema::hasColumn('projects', 'category')) {
+                    $m = require database_path('migrations/2024_01_03_000001_add_category_to_projects_table.php');
+                    $m->up();
+                }
+            },
         ];
 
         $results = [];
