@@ -77,7 +77,7 @@
     "name": "vendor-react"
   },
   "resources/css/app.css": {
-    "file": "assets/app-ewL-GfyR.css",
+    "file": "assets/app-BJMW_AJ3.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
@@ -262,7 +262,7 @@
     ]
   },
   "resources/js/Pages/Studio/Index.jsx": {
-    "file": "assets/Index-UdDn3uB7.js",
+    "file": "assets/Index-BD8FTb5s.js",
     "name": "Index",
     "src": "resources/js/Pages/Studio/Index.jsx",
     "isDynamicEntry": true,
@@ -270,12 +270,13 @@
       "_vendor-react-0sQWZz84.js",
       "_vendor-inertia-CvrWwf2x.js",
       "_InView-B6JWxxow.js",
-      "_vendor-motion-9yaV8QXb.js",
-      "_vendor-lucide-CSRxCw3x.js"
+      "_Button-ByG55t21.js",
+      "_vendor-lucide-CSRxCw3x.js",
+      "_vendor-motion-9yaV8QXb.js"
     ]
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-Cdu2Sq9R.js",
+    "file": "assets/app-BsQPwXqk.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,

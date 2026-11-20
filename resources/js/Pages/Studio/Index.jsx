@@ -2,112 +2,320 @@ import React from 'react';
 import { Head } from '@inertiajs/react';
 import PublicLayout from '../../Layouts/PublicLayout';
 import InView from '../../Components/UI/InView';
+import Button from '../../Components/UI/Button';
+import { MapPin } from 'lucide-react';
+
+const defaultPhilosophy = [
+    {
+        number: '01',
+        title: 'Unified Design & Build',
+        description: 'We believe in design and build as a unified process, creating landscapes that grow naturally from their environment through integrated execution, sustainable practices, and locally sourced materials.',
+    },
+    {
+        number: '02',
+        title: 'Land-First Sensitivity',
+        description: 'Beginning each project with a deep understanding of the land; its form, climate, and natural rhythms. We do not impose design; we allow the landscape to guide the process.',
+    },
+    {
+        number: '03',
+        title: 'Rooted in Culture & Materiality',
+        description: 'Rooted in the essence of place, local culture, and the people who inhabit it, using natural and locally sourced materials to create functional outdoor spaces that feel alive, meaningful, and timeless.',
+    },
+    {
+        number: '04',
+        title: 'Enduring Ecological Harmony',
+        description: 'Every detail is crafted with care, ensuring beauty and function evolve together over time. Our landscapes are made to belong, to endure, and to grow alongside the lives within them.',
+    },
+];
+
+const defaultConceptSteps = [
+    {
+        number: '01',
+        title: 'Contact Us',
+        description: 'Clients can reach us via WhatsApp, email, or Instagram. We listen to your needs and gather initial information about the project.',
+    },
+    {
+        number: '02',
+        title: 'Project Meeting & Site Assessment',
+        description: 'We visit the project site to evaluate existing conditions, take precise measurements, and discuss the client’s vision, preferences, and functional requirements for the landscape design.',
+    },
+    {
+        number: '03',
+        title: 'Moodboard & Landscape Concept',
+        description: 'A moodboard is developed to capture the style, materials, planting approach, and overall design direction of the landscape project in line with the client’s vision.',
+    },
+    {
+        number: '04',
+        title: 'Project Collaboration Agreement',
+        description: 'Once the concept is approved, we finalize a design agreement covering the scope, schedule, design fee, and terms, ensuring clear understanding between our team and the client before design and execution begin.',
+    },
+    {
+        number: '05',
+        title: 'Design & Build',
+        description: 'Our team carries out the design and build process, including 3D renderings, technical plans, planting schemes, and site execution, bringing the concept to life.',
+    },
+];
 
 export default function StudioIndex({
     studio = {},
     philosophy = [],
     team = [],
     process = [],
+    conceptSteps = [],
     accolades = [],
 }) {
+    const activePhilosophy = (Array.isArray(philosophy) && philosophy.length > 0) ? philosophy : defaultPhilosophy;
+    const activeConceptSteps = (Array.isArray(conceptSteps) && conceptSteps.length > 0) ? conceptSteps : defaultConceptSteps;
+
     return (
         <PublicLayout>
-            <Head title="Studio Philosophy, Methodology & Leadership" />
+            <Head title="Studio Profile — Kode Landscape Studio | Tropical Design & Build" />
 
-            {/* Header */}
-            <div className="max-w-7xl mx-auto px-6 py-20">
-                <InView className="max-w-3xl">
-                    <span className="text-xs uppercase tracking-widest text-[#88B896] font-semibold">
-                        The Practice
-                    </span>
-                    <h1 className="font-serif text-4xl sm:text-6xl text-[#F4F2ED] mt-2 tracking-tight">
-                        Architecture Born From Ground &amp; Topography
+            {/* Header / Hero */}
+            <div className="max-w-7xl mx-auto px-6 pt-20 pb-16">
+                <InView className="max-w-4xl space-y-6">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#152319] border border-emerald-500/20 text-xs uppercase tracking-widest text-[#88B896] font-semibold">
+                        <MapPin className="w-3.5 h-3.5 text-[#88B896]" />
+                        <span>Kode Landscape Studio · Bali, Indonesia</span>
+                    </div>
+                    <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl text-[#F4F2ED] tracking-tight leading-[1.08]">
+                        Architecture Born From Ground, Climate &amp; Tropical Topography
                     </h1>
-                    <p className="mt-6 text-lg text-[#C4C9C3]/90 font-light leading-relaxed">
-                        {studio.manifesto}
+                    <p className="text-lg sm:text-xl text-[#C4C9C3]/90 font-light leading-relaxed max-w-3xl">
+                        {studio?.manifesto || 'We believe in design and build as a unified process, creating landscapes that grow naturally from their environment. Rooted in the essence of place, local culture, and the people who inhabit it, our landscapes are made to belong, to endure, and to grow alongside the lives within them.'}
                     </p>
+                    <div className="flex flex-wrap items-center gap-4 pt-2">
+                        <Button href="/contact" variant="primary" size="lg">
+                            Initiate Commission
+                        </Button>
+                        <Button href="/projects" variant="secondary" size="lg">
+                            Explore Works
+                        </Button>
+                    </div>
                 </InView>
             </div>
 
-            {/* Philosophy Pillars */}
+            {/* About Us Section */}
             <section className="bg-[#0E1310]/85 backdrop-blur-md border-y border-white/10 text-[#F4F2ED] py-24 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-1px_0_rgba(255,255,255,0.06)]">
                 <div className="max-w-7xl mx-auto px-6">
                     <InView className="max-w-2xl mb-16">
                         <span className="text-xs uppercase tracking-widest text-[#88B896] font-semibold">
-                            Core Tenets
+                            About Us
                         </span>
-                        <h2 className="font-serif text-3xl sm:text-4xl tracking-tight text-[#F4F2ED] mt-1">
-                            Foundational Principles
+                        <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-[#F4F2ED] mt-2">
+                            Kode Landscape Studio
                         </h2>
                     </InView>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                        {philosophy.map((item, i) => (
-                            <InView key={i} delay={i * 0.1} className="border-t border-white/10 pt-6 space-y-3">
-                                <span className="font-serif text-2xl text-[#88B896]/70">{item.number}</span>
-                                <h3 className="font-serif text-2xl tracking-tight text-[#F4F2ED]">{item.title}</h3>
-                                <p className="text-sm text-[#C4C9C3]/80 font-light leading-relaxed">{item.description}</p>
-                            </InView>
-                        ))}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-start">
+                        {/* Narrative Column */}
+                        <InView delay={0.1} className="space-y-6 text-[#C4C9C3]/90 font-light leading-relaxed text-base sm:text-lg">
+                            <p>
+                                Kode Landscape Studio is a small, growing landscape design and build studio based in Bali, founded in 2025. We specialize in crafting warm tropical outdoor environments across coastal, hillside, and diverse natural settings for resorts, hotels, villas, commercial spaces, private residences, and landscape renovation projects.
+                            </p>
+                            <p>
+                                Our work blends creative vision with hands-on execution, allowing us to deliver landscapes that feel natural, well-curated, and thoughtfully designed to realize each client’s dream; rooted in the richness of nature and cultural heritage.
+                            </p>
+                            <p>
+                                We believe that every outdoor space should tell a story, reflecting both the spirit of its surroundings and the lifestyle of those who inhabit it. By integrating sustainable practices and locally inspired design elements, we create landscapes that are not only beautiful but also enduring and meaningful.
+                            </p>
+                        </InView>
+
+                        {/* Dossier Card Column */}
+                        <InView delay={0.2} className="border border-white/10 bg-[rgba(20,32,24,0.65)] backdrop-blur-md p-8 sm:p-10 space-y-6 shadow-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                            <div className="border-b border-white/10 pb-6">
+                                <span className="text-xs uppercase tracking-widest text-[#88B896] font-mono">Studio Dossier</span>
+                                <h3 className="font-serif text-2xl text-[#F4F2ED] mt-1">Tropical Practice &amp; Build</h3>
+                            </div>
+
+                            <dl className="space-y-4 text-sm">
+                                <div className="flex flex-col sm:flex-row sm:justify-between py-2 border-b border-white/5 gap-1">
+                                    <dt className="text-xs uppercase tracking-wider text-[#88B896] font-medium">Headquarters</dt>
+                                    <dd className="text-[#F4F2ED] font-light">Bali, Indonesia</dd>
+                                </div>
+                                <div className="flex flex-col sm:flex-row sm:justify-between py-2 border-b border-white/5 gap-1">
+                                    <dt className="text-xs uppercase tracking-wider text-[#88B896] font-medium">Founded</dt>
+                                    <dd className="text-[#F4F2ED] font-light">2025</dd>
+                                </div>
+                                <div className="flex flex-col sm:flex-row sm:justify-between py-2 border-b border-white/5 gap-1">
+                                    <dt className="text-xs uppercase tracking-wider text-[#88B896] font-medium">Specialization</dt>
+                                    <dd className="text-[#F4F2ED] font-light">Warm Tropical Outdoor Environments</dd>
+                                </div>
+                                <div className="flex flex-col sm:flex-row sm:justify-between py-2 border-b border-white/5 gap-1">
+                                    <dt className="text-xs uppercase tracking-wider text-[#88B896] font-medium">Settings</dt>
+                                    <dd className="text-[#F4F2ED] font-light text-right">Coastal, Hillside &amp; Natural Contexts</dd>
+                                </div>
+                                <div className="flex flex-col sm:flex-row sm:justify-between py-2 border-b border-white/5 gap-1">
+                                    <dt className="text-xs uppercase tracking-wider text-[#88B896] font-medium">Typologies</dt>
+                                    <dd className="text-[#F4F2ED] font-light text-right">Resorts, Hotels, Villas, Commercial, Private Residences &amp; Renovations</dd>
+                                </div>
+                                <div className="flex flex-col sm:flex-row sm:justify-between py-2 gap-1">
+                                    <dt className="text-xs uppercase tracking-wider text-[#88B896] font-medium">Delivery Model</dt>
+                                    <dd className="text-[#88B896] font-medium">Unified Design &amp; Build</dd>
+                                </div>
+                            </dl>
+                        </InView>
                     </div>
                 </div>
             </section>
 
-            {/* Multi-Stage Methodology */}
+            {/* Our Philosophy Section */}
             <section className="max-w-7xl mx-auto px-6 py-24">
-                <InView className="max-w-2xl mb-16">
+                <InView className="max-w-3xl mb-16">
                     <span className="text-xs uppercase tracking-widest text-[#88B896] font-semibold">
-                        Design Evolution
+                        Core Principles
                     </span>
-                    <h2 className="font-serif text-3xl sm:text-4xl tracking-tight text-[#F4F2ED] mt-1">
-                        Our Four-Stage Methodology
+                    <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-[#F4F2ED] mt-2">
+                        Our Philosophy
                     </h2>
+                    <p className="mt-4 text-base sm:text-lg text-[#C4C9C3]/90 font-light leading-relaxed">
+                        We believe in design and build as a unified process, creating landscapes that grow naturally from their environment, beginning each project with a deep understanding of the land; its form, climate, and natural rhythms. Rooted in the essence of place, local culture, and the people who inhabit it, every landscape is shaped with its own identity and soul.
+                    </p>
                 </InView>
 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    {process.map((step, i) => (
-                        <InView key={i} delay={i * 0.08} className="border border-white/10 bg-[rgba(20,32,24,0.65)] backdrop-blur-md p-6 space-y-4 shadow-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
-                            <span className="font-serif text-3xl text-[#88B896]">{step.stage}</span>
-                            <h3 className="font-serif text-xl text-[#F4F2ED]">{step.title}</h3>
-                            <p className="text-xs text-[#C4C9C3]/80 font-light leading-relaxed">{step.description}</p>
+                {/* Featured Credo Banner */}
+                <InView delay={0.1} className="border-l-2 border-[#88B896] bg-[#0E1310]/70 backdrop-blur-sm p-6 sm:p-8 mb-16 text-[#F4F2ED]">
+                    <blockquote className="font-serif text-xl sm:text-2xl text-[#F4F2ED] italic leading-relaxed">
+                        &ldquo;We do not impose design; we allow the landscape to guide the process. Every detail is crafted with care, ensuring beauty and function evolve together over time. Our landscapes are made to belong, to endure, and to grow alongside the lives within them.&rdquo;
+                    </blockquote>
+                    <p className="mt-4 text-xs uppercase tracking-widest text-[#88B896] font-semibold">
+                        — Kode Landscape Studio Creed
+                    </p>
+                </InView>
+
+                {/* Philosophy Pillars Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    {activePhilosophy.map((item, i) => (
+                        <InView key={i} delay={i * 0.1} className="border-t border-white/10 pt-6 space-y-3">
+                            <span className="font-serif text-2xl text-[#88B896]/70">{item.number}</span>
+                            <h3 className="font-serif text-2xl tracking-tight text-[#F4F2ED]">{item.title}</h3>
+                            <p className="text-sm text-[#C4C9C3]/80 font-light leading-relaxed">{item.description}</p>
                         </InView>
                     ))}
                 </div>
             </section>
 
-            {/* Leadership Team */}
-            <section className="max-w-7xl mx-auto px-6 py-24 border-t border-white/10">
-                <InView className="max-w-2xl mb-16">
+            {/* Why Quality Landscape is Essential for Property Value Section */}
+            <section className="bg-[#0E1310]/85 backdrop-blur-md border-y border-white/10 text-[#F4F2ED] py-24 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),inset_0_-1px_0_rgba(255,255,255,0.06)]">
+                <div className="max-w-7xl mx-auto px-6">
+                    <InView className="max-w-3xl mb-16">
+                        <span className="text-xs uppercase tracking-widest text-[#88B896] font-semibold">
+                            Strategic Investment
+                        </span>
+                        <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-[#F4F2ED] mt-2">
+                            Why Quality Landscape is Essential for Property Value
+                        </h2>
+                        <p className="mt-6 text-base sm:text-lg text-[#C4C9C3]/90 font-light leading-relaxed">
+                            Quality landscape design is essential as it directly enhances a property’s value, identity, and long-term performance. Beyond aesthetics, a thoughtfully designed landscape creates strong first impressions, reinforces architectural character, and establishes a seamless relationship between the built environment and its natural context.
+                        </p>
+                    </InView>
+
+                    {/* Three Core Dimensions of Value */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <InView delay={0.08} className="border border-white/10 bg-[rgba(20,32,24,0.65)] backdrop-blur-md p-8 space-y-4 shadow-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col justify-between">
+                            <div className="space-y-4">
+                                <span className="text-xs uppercase tracking-widest text-[#88B896] font-mono font-semibold">01 · Asset &amp; Identity</span>
+                                <h3 className="font-serif text-2xl text-[#F4F2ED]">Property Value &amp; Identity</h3>
+                                <p className="text-sm text-[#C4C9C3]/85 font-light leading-relaxed">
+                                    Strategic landscaping increases property value by elevating visual appeal, optimizing outdoor functionality, and strengthening environmental performance. For residential, hospitality, and commercial developments, landscape is not merely an enhancement; it is a strategic investment. It elevates user experience, promotes well-being, and establishes a distinctive sense of place that differentiates the property within a competitive market.
+                                </p>
+                            </div>
+                        </InView>
+
+                        <InView delay={0.16} className="border border-white/10 bg-[rgba(20,32,24,0.65)] backdrop-blur-md p-8 space-y-4 shadow-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col justify-between">
+                            <div className="space-y-4">
+                                <span className="text-xs uppercase tracking-widest text-[#88B896] font-mono font-semibold">02 · Microclimate &amp; Hydrology</span>
+                                <h3 className="font-serif text-2xl text-[#F4F2ED]">Environmental Performance</h3>
+                                <p className="text-sm text-[#C4C9C3]/85 font-light leading-relaxed">
+                                    Carefully planned vegetation helps reduce heat, improve air quality, manage stormwater runoff, prevent erosion, support groundwater recharge, and create a comfortable microclimate; all while maintaining aesthetic harmony with the architecture and existing surroundings.
+                                </p>
+                            </div>
+                        </InView>
+
+                        <InView delay={0.24} className="border border-white/10 bg-[rgba(20,32,24,0.65)] backdrop-blur-md p-8 space-y-4 shadow-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] flex flex-col justify-between">
+                            <div className="space-y-4">
+                                <span className="text-xs uppercase tracking-widest text-[#88B896] font-mono font-semibold">03 · Ecological Balance</span>
+                                <h3 className="font-serif text-2xl text-[#F4F2ED]">Sustainable Landscape Approach</h3>
+                                <p className="text-sm text-[#C4C9C3]/85 font-light leading-relaxed">
+                                    Furthermore, a sustainable landscape approach prioritizes the use of native plants, water-efficient systems, and environmentally responsible materials to support long-term ecological balance.
+                                </p>
+                            </div>
+                        </InView>
+                    </div>
+                </div>
+            </section>
+
+            {/* From Concept to Creation Section (5 Steps) */}
+            <section className="max-w-7xl mx-auto px-6 py-24">
+                <InView className="max-w-3xl mb-16">
                     <span className="text-xs uppercase tracking-widest text-[#88B896] font-semibold">
-                        Studio Leadership
+                        Methodology &amp; Workflow
                     </span>
-                    <h2 className="font-serif text-3xl sm:text-4xl tracking-tight text-[#F4F2ED] mt-1">
-                        Principal Practitioners
+                    <h2 className="font-serif text-3xl sm:text-5xl tracking-tight text-[#F4F2ED] mt-2">
+                        From Concept to Creation
                     </h2>
+                    <p className="mt-4 text-base sm:text-lg text-[#C4C9C3]/90 font-light leading-relaxed">
+                        Our disciplined, five-step collaborative methodology ensures complete clarity, artistic integrity, and rigorous execution from first consultation to final site handover.
+                    </p>
                 </InView>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {team.map((member, i) => (
-                        <InView key={i} delay={i * 0.08} className="space-y-4">
-                            <div className="aspect-[4/5] overflow-hidden bg-[#121814] border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
-                                <img
-                                    src={member.image}
-                                    alt={member.name}
-                                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
-                                />
-                            </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                    {activeConceptSteps.map((step, i) => (
+                        <InView
+                            key={i}
+                            delay={i * 0.08}
+                            className="border border-white/10 bg-[rgba(20,32,24,0.65)] backdrop-blur-md p-6 space-y-4 shadow-lg shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] hover:border-emerald-500/30 transition-colors duration-300 flex flex-col justify-between"
+                        >
                             <div>
-                                <h3 className="font-serif text-lg text-[#F4F2ED]">{member.name}</h3>
-                                <p className="text-xs uppercase tracking-wider text-[#88B896] font-medium mt-0.5">{member.role}</p>
-                                <p className="text-xs text-[#A8B0A6]/80 font-light mt-2 leading-relaxed">{member.bio}</p>
+                                <span className="font-serif text-3xl text-[#88B896] block mb-2">{step.number}</span>
+                                <h3 className="font-serif text-lg sm:text-xl text-[#F4F2ED] leading-snug">{step.title}</h3>
                             </div>
+                            <p className="text-xs sm:text-sm text-[#C4C9C3]/80 font-light leading-relaxed">
+                                {step.description}
+                            </p>
                         </InView>
                     ))}
                 </div>
             </section>
 
-            {/* Accolades */}
-            {accolades.length > 0 && (
+            {/* Leadership Team (Preserved Props) */}
+            {team && team.length > 0 && (
+                <section className="bg-[#0E1310]/85 backdrop-blur-md border-t border-white/10 text-[#F4F2ED] py-24 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+                    <div className="max-w-7xl mx-auto px-6">
+                        <InView className="max-w-2xl mb-16">
+                            <span className="text-xs uppercase tracking-widest text-[#88B896] font-semibold">
+                                Studio Leadership
+                            </span>
+                            <h2 className="font-serif text-3xl sm:text-4xl tracking-tight text-[#F4F2ED] mt-1">
+                                Principal Practitioners
+                            </h2>
+                        </InView>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                            {team.map((member, i) => (
+                                <InView key={i} delay={i * 0.08} className="space-y-4">
+                                    <div className="aspect-[4/5] overflow-hidden bg-[#121814] border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                                        <img
+                                            src={member.image}
+                                            alt={member.name}
+                                            className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                    <div>
+                                        <h3 className="font-serif text-lg text-[#F4F2ED]">{member.name}</h3>
+                                        <p className="text-xs uppercase tracking-wider text-[#88B896] font-medium mt-0.5">{member.role}</p>
+                                        <p className="text-xs text-[#A8B0A6]/80 font-light mt-2 leading-relaxed">{member.bio}</p>
+                                    </div>
+                                </InView>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )}
+
+            {/* Accolades (Preserved Props) */}
+            {accolades && accolades.length > 0 && (
                 <section className="bg-[rgba(20,32,24,0.35)] backdrop-blur-sm border-t border-white/10 py-20 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
                     <div className="max-w-7xl mx-auto px-6">
                         <InView className="max-w-xl mb-12">
@@ -130,6 +338,31 @@ export default function StudioIndex({
                     </div>
                 </section>
             )}
+
+            {/* Call to Action */}
+            <section className="border-t border-white/10 py-24 bg-[#0B0E0C]">
+                <div className="max-w-7xl mx-auto px-6 text-center">
+                    <InView className="max-w-3xl mx-auto space-y-6">
+                        <span className="text-xs uppercase tracking-widest text-[#88B896] font-semibold">
+                            Begin Your Collaboration
+                        </span>
+                        <h2 className="font-serif text-3xl sm:text-5xl md:text-6xl text-[#F4F2ED] tracking-tight">
+                            Let the Landscape Guide the Process
+                        </h2>
+                        <p className="text-base sm:text-lg text-[#C4C9C3]/90 font-light leading-relaxed max-w-2xl mx-auto">
+                            Whether creating a secluded private residence, hospitality resort, or landscape renovation in Bali, we bring creative vision and unified build craft to every terrain.
+                        </p>
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                            <Button href="/contact" variant="primary" size="lg">
+                                Initiate Project Consultation
+                            </Button>
+                            <Button href="/projects" variant="outline-light" size="lg">
+                                View Completed Sanctuaries
+                            </Button>
+                        </div>
+                    </InView>
+                </div>
+            </section>
         </PublicLayout>
     );
 }

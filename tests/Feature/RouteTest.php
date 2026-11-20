@@ -83,6 +83,29 @@ class RouteTest extends TestCase
         );
     }
 
+    /**
+     * Tier 1: Studio page contains complete Kode Landscape Studio profile and 5-step methodology contract.
+     */
+    public function test_studio_page_contains_kode_landscape_profile_and_five_concept_steps(): void
+    {
+        $response = $this->get('/studio');
+
+        $response->assertStatus(200);
+        $response->assertInertia(fn (Assert $page) => $page
+            ->component('Studio/Index')
+            ->where('studio.name', 'Kode Landscape Studio')
+            ->where('studio.founded', 2025)
+            ->where('studio.location', 'Bali, Indonesia')
+            ->has('philosophy', 4)
+            ->has('conceptSteps', 5)
+            ->where('conceptSteps.0.title', 'Contact Us')
+            ->where('conceptSteps.1.title', 'Project Meeting & Site Assessment')
+            ->where('conceptSteps.2.title', 'Moodboard & Landscape Concept')
+            ->where('conceptSteps.3.title', 'Project Collaboration Agreement')
+            ->where('conceptSteps.4.title', 'Design & Build')
+        );
+    }
+
 
     /**
      * Tier 1: Contact page returns 200 and renders Contact/Index.

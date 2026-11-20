@@ -13,32 +13,33 @@ class PageController extends Controller
     public function studio(): Response
     {
         $studio = [
-            'name' => 'StudioKode',
-            'tagline' => 'Landscape Architecture & Botanical Sanctuaries',
-            'manifesto' => 'We design landscapes that mediate between human dwelling and untamed nature. Our practice rejects decorative landscaping in pursuit of profound ecological coherence, spatial permanence, and visceral sensory presence.',
-            'founded' => 2009,
+            'name' => 'Kode Landscape Studio',
+            'tagline' => 'Tropical Landscape Design & Build',
+            'manifesto' => 'We believe in design and build as a unified process, creating landscapes that grow naturally from their environment. Rooted in the essence of place, local culture, and the people who inhabit it, our landscapes are made to belong, to endure, and to grow alongside the lives within them.',
+            'founded' => 2025,
+            'location' => 'Bali, Indonesia',
         ];
 
         $philosophy = [
             [
                 'number' => '01',
-                'title' => 'Living Topography',
-                'description' => 'We do not impose foreign forms on the land. Every terrace, retaining wall, and water rill originates from the natural inclination and geological history of the terrain.',
+                'title' => 'Unified Design & Build',
+                'description' => 'We believe in design and build as a unified process, creating landscapes that grow naturally from their environment through integrated execution, sustainable practices, and locally sourced materials.',
             ],
             [
                 'number' => '02',
-                'title' => 'Ecological Permanence',
-                'description' => 'Our planting schemes avoid transient seasonal displays in favor of resilient climax communities, microclimate-adapted perennials, and long-lived specimen trees.',
+                'title' => 'Land-First Sensitivity',
+                'description' => 'Beginning each project with a deep understanding of the land; its form, climate, and natural rhythms. We do not impose design; we allow the landscape to guide the process.',
             ],
             [
                 'number' => '03',
-                'title' => 'Sensory Materiality',
-                'description' => 'We celebrate hand-chiseled granite, reclaimed timber, and unlacquered bronzes that absorb regional weather and acquire timeless patina.',
+                'title' => 'Rooted in Culture & Materiality',
+                'description' => 'Rooted in the essence of place, local culture, and the people who inhabit it, using natural and locally sourced materials to create functional outdoor spaces that feel alive, meaningful, and timeless.',
             ],
             [
                 'number' => '04',
-                'title' => 'Hydrological Stewardship',
-                'description' => 'Water is treated as both an architectural mirror and a precious resource. We integrate biological filtration basins, rain gardens, and dry-creek drainage matrices.',
+                'title' => 'Enduring Ecological Harmony',
+                'description' => 'Every detail is crafted with care, ensuring beauty and function evolve together over time. Our landscapes are made to belong, to endure, and to grow alongside the lives within them.',
             ],
         ];
 
@@ -92,6 +93,34 @@ class PageController extends Controller
             ],
         ];
 
+        $conceptSteps = [
+            [
+                'number' => '01',
+                'title' => 'Contact Us',
+                'description' => 'Clients can reach us via WhatsApp, email, or Instagram. We listen to your needs and gather initial information about the project.',
+            ],
+            [
+                'number' => '02',
+                'title' => 'Project Meeting & Site Assessment',
+                'description' => 'We visit the project site to evaluate existing conditions, take precise measurements, and discuss the client’s vision, preferences, and functional requirements for the landscape design.',
+            ],
+            [
+                'number' => '03',
+                'title' => 'Moodboard & Landscape Concept',
+                'description' => 'A moodboard is developed to capture the style, materials, planting approach, and overall design direction of the landscape project in line with the client’s vision.',
+            ],
+            [
+                'number' => '04',
+                'title' => 'Project Collaboration Agreement',
+                'description' => 'Once the concept is approved, we finalize a design agreement covering the scope, schedule, design fee, and terms, ensuring clear understanding between our team and the client before design and execution begin.',
+            ],
+            [
+                'number' => '05',
+                'title' => 'Design & Build',
+                'description' => 'Our team carries out the design and build process, including 3D renderings, technical plans, planting schemes, and site execution, bringing the concept to life.',
+            ],
+        ];
+
         $accolades = [
             ['year' => '2024', 'award' => 'Prix de Rome for Landscape Architecture — Sanctuary Category'],
             ['year' => '2023', 'award' => 'World Landscape Architecture Award — Best Private Estate'],
@@ -103,6 +132,7 @@ class PageController extends Controller
             'philosophy' => $philosophy,
             'team' => $team,
             'process' => $process,
+            'conceptSteps' => $conceptSteps,
             'accolades' => $accolades,
         ]);
     }
