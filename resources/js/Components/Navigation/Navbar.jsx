@@ -47,11 +47,9 @@ export default function Navbar() {
         return () => document.removeEventListener('pointerdown', handlePointerDown);
     }, [mobileOpen]);
 
-    const navItems = [
-        { name: 'Home', href: '/' },
+    const navItems = [  
         { name: 'Projects', href: '/projects' },
         { name: 'Studio', href: '/studio' },
-        { name: 'Services', href: '/services' },
         { name: 'Contact', href: '/contact' },
     ];
 

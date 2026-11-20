@@ -163,7 +163,6 @@ async function runMilestone4AdversarialStress() {
             'resources/js/Pages/Projects/Index.jsx',
             'resources/js/Pages/Projects/Show.jsx',
             'resources/js/Pages/Studio/Index.jsx',
-            'resources/js/Pages/Services/Index.jsx',
             'resources/js/Pages/Contact/Index.jsx',
             'resources/js/Pages/Admin/Dashboard/Index.jsx',
             'resources/js/Pages/Admin/Projects/Index.jsx',

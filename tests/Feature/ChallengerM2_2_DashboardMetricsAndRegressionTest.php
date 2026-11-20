@@ -380,10 +380,6 @@ class ChallengerM2_2_DashboardMetricsAndRegressionTest extends TestCase
             ->assertStatus(200)
             ->assertInertia(fn (Assert $page) => $page->component('Studio/Index'));
 
-        // Services
-        $this->get('/services')
-            ->assertStatus(200)
-            ->assertInertia(fn (Assert $page) => $page->component('Services/Index'));
 
         // Contact
         $this->get('/contact')
@@ -565,7 +561,6 @@ class ChallengerM2_2_DashboardMetricsAndRegressionTest extends TestCase
             'resources/js/Pages/Projects/Index.jsx',
             'resources/js/Pages/Projects/Show.jsx',
             'resources/js/Pages/Studio/Index.jsx',
-            'resources/js/Pages/Services/Index.jsx',
             'resources/js/Pages/Contact/Index.jsx',
         ];
 

@@ -85,7 +85,7 @@ class FrontendBuildTest extends TestCase
     }
 
     /**
-     * Tier 1: Verify all 6 Page components exist under resources/js/Pages/.
+     * Tier 1: Verify all 5 Page components exist under resources/js/Pages/.
      * Specification R3.
      */
     public function test_all_page_components_exist(): void
@@ -95,7 +95,6 @@ class FrontendBuildTest extends TestCase
             'Projects/Index.jsx',
             'Projects/Show.jsx',
             'Studio/Index.jsx',
-            'Services/Index.jsx',
             'Contact/Index.jsx',
         ];
 

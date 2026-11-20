@@ -108,7 +108,6 @@ class ChallengerThemeM4_1_ResponsiveAdversarialStressTest extends TestCase
             resource_path('js/Pages/Projects/Index.jsx'),
             resource_path('js/Pages/Projects/Show.jsx'),
             resource_path('js/Pages/Studio/Index.jsx'),
-            resource_path('js/Pages/Services/Index.jsx'),
             resource_path('js/Pages/Contact/Index.jsx'),
             resource_path('js/Pages/Admin/Dashboard/Index.jsx'),
             resource_path('js/Pages/Admin/Projects/Index.jsx'),

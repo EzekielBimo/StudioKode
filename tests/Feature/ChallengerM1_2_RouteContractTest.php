@@ -207,35 +207,6 @@ class ChallengerM1_2_RouteContractTest extends TestCase
         );
     }
 
-    /**
-     * Challenge Route 5: GET /services (Services Index)
-     * Verifies HTTP 200, Inertia component Services/Index, and exact props contract:
-     * - services array of 5 architectural capabilities with deliverables
-     */
-    public function test_route_5_services_inertia_headers_and_props_contract(): void
-    {
-        $rawInertia = $this->getInertiaJson('/services');
-
-        $rawInertia->assertStatus(200);
-        $rawInertia->assertHeader('X-Inertia', 'true');
-
-        $json = $rawInertia->json();
-        $this->assertSame('Services/Index', $json['component']);
-        $this->assertArrayHasKey('services', $json['props']);
-        $this->assertCount(5, $json['props']['services']);
-
-        $this->get('/services')->assertInertia(fn (Assert $page) => $page
-            ->component('Services/Index')
-            ->has('services', 5, fn (Assert $service) => $service
-                ->has('id')
-                ->has('number')
-                ->has('title')
-                ->has('tagline')
-                ->has('description')
-                ->has('deliverables')
-            )
-        );
-    }
 
     /**
      * Challenge Route 6: GET /contact (Contact Index)
@@ -341,7 +312,7 @@ class ChallengerM1_2_RouteContractTest extends TestCase
      */
     public function test_html_response_renders_data_page_when_no_inertia_header(): void
     {
-        $routes = ['/', '/projects', '/studio', '/services', '/contact'];
+        $routes = ['/', '/projects', '/studio', '/contact'];
 
         foreach ($routes as $uri) {
             $response = $this->get($uri);
@@ -427,8 +398,8 @@ class ChallengerM1_2_RouteContractTest extends TestCase
         $response = $this->put('/projects');
         $this->assertSame(405, $response->getStatusCode());
 
-        // DELETE on /services is not permitted
-        $response = $this->delete('/services');
+        // DELETE on /studio is not permitted
+        $response = $this->delete('/studio');
         $this->assertSame(405, $response->getStatusCode());
     }
 

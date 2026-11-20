@@ -83,18 +83,6 @@ class RouteTest extends TestCase
         );
     }
 
-    /**
-     * Tier 1: Services page returns 200 and renders Services/Index.
-     */
-    public function test_services_page_returns_200_and_renders_inertia(): void
-    {
-        $response = $this->get('/services');
-
-        $response->assertStatus(200);
-        $response->assertInertia(fn (Assert $page) => $page
-            ->component('Services/Index')
-        );
-    }
 
     /**
      * Tier 1: Contact page returns 200 and renders Contact/Index.

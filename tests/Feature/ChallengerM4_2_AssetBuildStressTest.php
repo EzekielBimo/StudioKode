@@ -329,7 +329,6 @@ class ChallengerM4_2_AssetBuildStressTest extends TestCase
             'resources/js/Pages/Projects/Index.jsx',
             'resources/js/Pages/Projects/Show.jsx',
             'resources/js/Pages/Studio/Index.jsx',
-            'resources/js/Pages/Services/Index.jsx',
             'resources/js/Pages/Contact/Index.jsx',
         ];
 

@@ -28,9 +28,6 @@ export default function Footer() {
                         <li>
                             <Link href="/studio" className="hover:text-emerald-300 transition-colors">Studio Philosophy</Link>
                         </li>
-                        <li>
-                            <Link href="/services" className="hover:text-emerald-300 transition-colors">Services &amp; Scope</Link>
-                        </li>
                     </ul>
                 </div>
 

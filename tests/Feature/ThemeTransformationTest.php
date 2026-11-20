@@ -351,7 +351,6 @@ class ThemeTransformationTest extends TestCase
             'Projects/Index.jsx' => ['max-w-7xl', 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3', 'gap-8'],
             'Projects/Show.jsx' => ['max-w-7xl', 'grid-cols-2 md:grid-cols-4'],
             'Studio/Index.jsx' => ['max-w-7xl', 'grid-cols-1 md:grid-cols-2'],
-            'Services/Index.jsx' => ['max-w-7xl', 'grid-cols-1 lg:grid-cols-12'],
             'Contact/Index.jsx' => ['max-w-7xl', 'grid-cols-1 lg:grid-cols-12'],
         ];
 
@@ -436,7 +435,6 @@ class ThemeTransformationTest extends TestCase
             '/' => 'Home/Index',
             '/projects' => 'Projects/Index',
             '/studio' => 'Studio/Index',
-            '/services' => 'Services/Index',
             '/contact' => 'Contact/Index',
         ];
 

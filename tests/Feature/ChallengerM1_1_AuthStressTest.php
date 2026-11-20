@@ -458,7 +458,6 @@ class ChallengerM1_1_AuthStressTest extends TestCase
             '/',
             '/projects',
             '/studio',
-            '/services',
             '/contact',
             '/admin/login',
         ];

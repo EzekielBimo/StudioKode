@@ -31,7 +31,6 @@ Route::get('/projects/{slug}', [ProjectController::class, 'show'])->name('projec
 
 // Studio & Informational Pages
 Route::get('/studio', [PageController::class, 'studio'])->name('studio');
-Route::get('/services', [PageController::class, 'services'])->name('services');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
 
 // Consultations & Inquiries

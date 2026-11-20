@@ -134,7 +134,6 @@ async function runMilestone4ThemeAdversarialChallenge() {
             'resources/js/Pages/Home/Index.jsx',
             'resources/js/Pages/Projects/Index.jsx',
             'resources/js/Pages/Projects/Show.jsx',
-            'resources/js/Pages/Services/Index.jsx',
             'resources/js/Pages/Studio/Index.jsx',
         ];
 
@@ -299,8 +298,8 @@ async function runMilestone4ThemeAdversarialChallenge() {
 
         const inputCode = fs.readFileSync('resources/js/Components/UI/Input.jsx', 'utf8');
         assert(
-            inputCode.includes('w-full') && inputCode.includes('px-4 py-3') && inputCode.includes('text-sm'),
-            'Input.jsx: inputs take full container width (w-full) with comfortable touch padding (px-4 py-3)'
+            inputCode.includes('w-full') && inputCode.includes('px-4 py-2.5') && inputCode.includes('text-sm'),
+            'Input.jsx: inputs take full container width (w-full) with comfortable touch padding (px-4 py-2.5)'
         );
         assert(
             inputCode.includes('border-rose-500/80') && inputCode.includes('border-white/15'),
@@ -336,7 +335,7 @@ async function runMilestone4ThemeAdversarialChallenge() {
         // 8.2 Badge.jsx
         const { default: Badge } = await vite.ssrLoadModule('/resources/js/Components/UI/Badge.jsx');
         const badgeFoliage = renderToStaticMarkup(React.createElement(Badge, { variant: 'foliage' }, 'Sanctuary'));
-        assert(badgeFoliage.includes('bg-[#1C2A21]') && badgeFoliage.includes('Sanctuary'), 'Badge SSR: foliage variant renders properly');
+        assert(badgeFoliage.includes('bg-[#152319]') && badgeFoliage.includes('Sanctuary'), 'Badge SSR: foliage variant renders properly');
 
         // 8.3 Input.jsx
         const { default: Input } = await vite.ssrLoadModule('/resources/js/Components/UI/Input.jsx');
@@ -364,7 +363,7 @@ async function runMilestone4ThemeAdversarialChallenge() {
             is_featured: true,
         };
         const cardHtml = renderToStaticMarkup(React.createElement(ProjectCard, { project: mockProject, index: 0 }));
-        assert(cardHtml.includes('Komorebi Pavilion') && cardHtml.includes('aspect-[4/3]'), 'ProjectCard SSR: preserves anti-CLS aspect-[4/3] and title');
+        assert(cardHtml.includes('Komorebi Pavilion') && cardHtml.includes('aspect-[16/10]'), 'ProjectCard SSR: preserves anti-CLS aspect-[16/10] and title');
 
         // 8.6 FilterBar.jsx
         const { default: FilterBar } = await vite.ssrLoadModule('/resources/js/Components/Portfolio/FilterBar.jsx');
@@ -390,8 +389,8 @@ async function runMilestone4ThemeAdversarialChallenge() {
         // 8.8 ProjectGalleryManager.jsx
         const { default: ProjectGalleryManager } = await vite.ssrLoadModule('/resources/js/Components/Admin/ProjectGalleryManager.jsx');
         const managerHtml = renderToStaticMarkup(React.createElement(ProjectGalleryManager, {
-            projectId: 1,
-            existingImages: mockGallery,
+            project: { id: 1 },
+            images: mockGallery,
         }));
         assert(
             managerHtml.includes('aspect-[4/3]') && managerHtml.includes('bg-[#E6E2DD]'),
