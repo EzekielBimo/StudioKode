@@ -31,6 +31,7 @@ class ProjectFactory extends Factory
             'location' => fake()->city() . ', ' . fake()->country(),
             'year' => fake()->numberBetween(2020, 2024),
             'area_size' => fake()->numberBetween(150, 2500) . ' m²',
+            'category' => fake()->randomElement([Project::CATEGORY_DESIGN, Project::CATEGORY_CONSTRUCTION]),
             'cover_image' => 'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1600&q=80',
             'masterplan_image' => 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80',
             'is_featured' => fake()->boolean(50),
@@ -45,6 +46,26 @@ class ProjectFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'is_featured' => true,
+        ]);
+    }
+
+    /**
+     * Indicate that the project is in Project Design category.
+     */
+    public function design(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'category' => Project::CATEGORY_DESIGN,
+        ]);
+    }
+
+    /**
+     * Indicate that the project is in Project Construction category.
+     */
+    public function construction(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'category' => Project::CATEGORY_CONSTRUCTION,
         ]);
     }
 }

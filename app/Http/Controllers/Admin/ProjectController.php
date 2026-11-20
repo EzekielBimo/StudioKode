@@ -33,26 +33,37 @@ class ProjectController extends Controller
             }
         }
 
+        // Filter by project category
+        $rawCategory = $request->query('category');
+        if (is_string($rawCategory) && trim($rawCategory) !== '' && strtolower(trim($rawCategory)) !== 'all') {
+            $query->category(trim($rawCategory));
+        }
+
         // Full-text search across project title and location
-        if ($request->filled('search')) {
-            $search = trim((string) $request->query('search'));
-            if ($search !== '') {
-                $query->where(function ($q) use ($search) {
-                    $q->where('title', 'like', "%{$search}%")
-                      ->orWhere('location', 'like', "%{$search}%");
-                });
-            }
+        $rawSearch = $request->query('search');
+        if (is_string($rawSearch) && trim($rawSearch) !== '') {
+            $search = trim($rawSearch);
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('location', 'like', "%{$search}%");
+            });
         }
 
         // Paginate results ordered by latest id
         $projects = $query->latest('id')->paginate(10)->withQueryString();
 
+        $filters = [
+            'search' => is_string($rawSearch) ? $rawSearch : '',
+            'featured' => is_string($request->query('featured')) ? $request->query('featured') : '',
+        ];
+
+        if (is_string($rawCategory)) {
+            $filters['category'] = $rawCategory;
+        }
+
         return Inertia::render('Admin/Projects/Index', [
             'projects' => $projects,
-            'filters' => [
-                'search' => $request->query('search', ''),
-                'featured' => $request->query('featured', ''),
-            ],
+            'filters' => $filters,
         ]);
     }
 
@@ -86,6 +97,7 @@ class ProjectController extends Controller
             'location' => ['required', 'string', 'max:255'],
             'year' => ['required', 'integer', 'min:1900', 'max:2100'],
             'area_size' => ['required', 'string', 'max:50'],
+            'category' => ['nullable', 'string', 'max:50', Rule::in(Project::CATEGORIES)],
             'cover_image' => ['nullable', 'image', 'max:10240'],
             'masterplan_image' => ['nullable', 'image', 'max:10240'],
             'is_featured' => ['nullable'],
@@ -118,6 +130,11 @@ class ProjectController extends Controller
         // Ensure slug exists if not in validated array
         if (empty($validated['slug'])) {
             $validated['slug'] = Str::slug($validated['title']);
+        }
+
+        // Ensure default category if omitted
+        if (empty($validated['category'])) {
+            $validated['category'] = Project::CATEGORY_DESIGN;
         }
 
         // Handle booleans and timestamps
@@ -176,6 +193,7 @@ class ProjectController extends Controller
             'location' => ['required', 'string', 'max:255'],
             'year' => ['required', 'integer', 'min:1900', 'max:2100'],
             'area_size' => ['required', 'string', 'max:50'],
+            'category' => ['nullable', 'string', 'max:50', Rule::in(Project::CATEGORIES)],
             'cover_image' => ['nullable', 'image', 'max:10240'],
             'masterplan_image' => ['nullable', 'image', 'max:10240'],
             'is_featured' => ['nullable'],
@@ -214,6 +232,11 @@ class ProjectController extends Controller
         // Ensure slug if present or update
         if (isset($validated['slug']) && empty($validated['slug'])) {
             $validated['slug'] = Str::slug($validated['title']);
+        }
+
+        // Ensure default or retained category if omitted or empty
+        if (array_key_exists('category', $validated) && empty($validated['category'])) {
+            $validated['category'] = $project->category ?: Project::CATEGORY_DESIGN;
         }
 
         // Handle booleans and timestamps

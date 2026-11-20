@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, usePage } from '@inertiajs/react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
 import MobileMenu from './MobileMenu';
 
 export default function Navbar() {
@@ -59,6 +59,18 @@ export default function Navbar() {
         return pathname.startsWith(path);
     };
 
+    const activeCategory = (() => {
+        if (!url) return null;
+        const [pathname, search] = url.split('?');
+        if (pathname !== '/projects') return null;
+        if (!search) return 'all';
+        const params = new URLSearchParams(search);
+        const cat = (params.get('category') || '').toLowerCase().trim();
+        if (cat === 'design' || cat === 'project design' || cat === 'project-design') return 'design';
+        if (cat === 'construction' || cat === 'project construction' || cat === 'project-construction') return 'construction';
+        return 'all';
+    })();
+
     return (
         <header
             ref={headerRef}
@@ -109,6 +121,84 @@ export default function Navbar() {
                     <div className="hidden md:flex items-center space-x-4 lg:space-x-6 text-xs sm:text-[13px] font-medium">
                         {navItems.map((item) => {
                             const active = isActive(item.href);
+                            if (item.name === 'Projects') {
+                                return (
+                                    <div key={item.name} className="relative group">
+                                        <Link
+                                            href={item.href}
+                                            aria-haspopup="true"
+                                            className={`relative py-1 transition-colors duration-200 inline-flex items-center gap-1 ${
+                                                active
+                                                    ? 'text-white font-semibold'
+                                                    : 'text-[#C5C8C0] hover:text-white'
+                                            }`}
+                                        >
+                                            <span>{item.name}</span>
+                                            <ChevronDown className="w-3 h-3 text-[#A8B0A6]/60 group-hover:text-emerald-400 group-focus-within:text-emerald-400 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180" />
+                                            {active && (
+                                                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-3.5 h-[2px] bg-emerald-400 rounded-full shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
+                                            )}
+                                        </Link>
+
+                                        {/* Dropdown Flyout Card */}
+                                        <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto focus-within:opacity-100 focus-within:pointer-events-auto transition-all duration-200 z-50">
+                                            <div className="w-64 p-2 rounded-2xl bg-[#0E1310]/95 backdrop-blur-xl border border-white/15 shadow-[0_16px_40px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.12)] space-y-1">
+                                                <Link
+                                                    href="/projects"
+                                                    className={`flex flex-col p-2.5 rounded-xl transition-colors group/item ${
+                                                        activeCategory === 'all'
+                                                            ? 'bg-white/10 text-emerald-300'
+                                                            : 'hover:bg-white/5'
+                                                    }`}
+                                                >
+                                                    <span className={`text-xs font-semibold ${
+                                                        activeCategory === 'all' ? 'text-emerald-300' : 'text-[#F4F6F0]'
+                                                    } group-hover/item:text-emerald-300`}>
+                                                        All Works
+                                                    </span>
+                                                    <span className="text-[11px] text-[#A8B0A6]/70 mt-0.5 font-light">
+                                                        Complete landscape portfolio
+                                                    </span>
+                                                </Link>
+                                                <Link
+                                                    href="/projects?category=design"
+                                                    className={`flex flex-col p-2.5 rounded-xl transition-colors group/item ${
+                                                        activeCategory === 'design'
+                                                            ? 'bg-white/10 text-emerald-300'
+                                                            : 'hover:bg-white/5'
+                                                    }`}
+                                                >
+                                                    <span className={`text-xs font-semibold ${
+                                                        activeCategory === 'design' ? 'text-emerald-300' : 'text-[#F4F6F0]'
+                                                    } group-hover/item:text-emerald-300`}>
+                                                        Project Design
+                                                    </span>
+                                                    <span className="text-[11px] text-[#A8B0A6]/70 mt-0.5 font-light">
+                                                        Garden concept &amp; spatial masterplans
+                                                    </span>
+                                                </Link>
+                                                <Link
+                                                    href="/projects?category=construction"
+                                                    className={`flex flex-col p-2.5 rounded-xl transition-colors group/item ${
+                                                        activeCategory === 'construction'
+                                                            ? 'bg-white/10 text-emerald-300'
+                                                            : 'hover:bg-white/5'
+                                                    }`}
+                                                >
+                                                    <span className={`text-xs font-semibold ${
+                                                        activeCategory === 'construction' ? 'text-emerald-300' : 'text-[#F4F6F0]'
+                                                    } group-hover/item:text-emerald-300`}>
+                                                        Project Construction
+                                                    </span>
+                                                    <span className="text-[11px] text-[#A8B0A6]/70 mt-0.5 font-light">
+                                                        Living landscape build &amp; stone craft
+                                                    </span>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            }
                             return (
                                 <Link
                                     key={item.name}

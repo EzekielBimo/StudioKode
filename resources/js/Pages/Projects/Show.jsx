@@ -29,6 +29,7 @@ export default function ProjectsShow({ project, images = [], relatedProjects = [
                 <InView>
                     <div className="flex flex-wrap items-center gap-2 mb-3">
                         {project.is_featured && <Badge variant="foliage">Featured Sanctuary</Badge>}
+                        {project.category && <Badge variant="foliage">{project.category}</Badge>}
                         <Badge variant="outline">{project.area_size}</Badge>
                     </div>
                     <h1 className="font-serif text-4xl sm:text-6xl text-[#F4F2ED] tracking-tight">

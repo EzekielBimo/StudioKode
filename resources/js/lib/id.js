@@ -183,6 +183,9 @@ export const id = {
         filter_all_featured: 'Semua Status Unggulan',
         filter_featured: 'Hanya Unggulan',
         filter_standard: 'Standar (Bukan Unggulan)',
+        filter_all_categories: 'Semua Kategori',
+        filter_category_design: 'Project Design',
+        filter_category_construction: 'Project Construction',
         empty_state: 'Belum ada proyek yang terdaftar di portofolio.',
         empty_filtered: 'Tidak ada proyek yang sesuai dengan kriteria pencarian atau penyaringan.',
         tabs: {
@@ -192,6 +195,7 @@ export const id = {
         table: {
             thumbnail: 'Pratinjau',
             title: 'Judul & Klien',
+            category: 'Kategori',
             location: 'Lokasi & Tahun',
             area: 'Luas Area',
             status: 'Publikasi',
@@ -202,6 +206,7 @@ export const id = {
         fields: {
             title: 'Judul Proyek',
             title_placeholder: 'Contoh: Taman Bambu Sastra',
+            category: 'Kategori Proyek',
             slug: 'Slug URL',
             slug_placeholder: 'taman-bambu-sastra',
             auto_slug: 'Otomatis dari judul',

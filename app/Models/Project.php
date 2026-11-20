@@ -12,6 +12,16 @@ class Project extends Model
     use HasFactory;
 
     /**
+     * Category constants
+     */
+    public const CATEGORY_DESIGN = 'Project Design';
+    public const CATEGORY_CONSTRUCTION = 'Project Construction';
+    public const CATEGORIES = [
+        self::CATEGORY_DESIGN,
+        self::CATEGORY_CONSTRUCTION,
+    ];
+
+    /**
      * The table associated with the model.
      *
      * @var string
@@ -32,6 +42,7 @@ class Project extends Model
         'location',
         'year',
         'area_size',
+        'category',
         'cover_image',
         'masterplan_image',
         'is_featured',
@@ -84,6 +95,31 @@ class Project extends Model
     {
         return $query->whereNotNull('published_at')
             ->where('published_at', '<=', now());
+    }
+
+    /**
+     * Scope a query to filter projects by category (supports normalized slugs).
+     */
+    public function scopeCategory(Builder $query, mixed $category = null): Builder
+    {
+        if (!is_string($category) || empty($category) || strtolower($category) === 'all') {
+            return $query;
+        }
+
+        $normalized = strtolower(trim($category));
+        if ($normalized === '' || $normalized === 'all') {
+            return $query;
+        }
+
+        if (in_array($normalized, ['design', 'project design', 'project-design'])) {
+            return $query->where('category', self::CATEGORY_DESIGN);
+        }
+
+        if (in_array($normalized, ['construction', 'project construction', 'project-construction'])) {
+            return $query->where('category', self::CATEGORY_CONSTRUCTION);
+        }
+
+        return $query->where('category', $category);
     }
 
     /**

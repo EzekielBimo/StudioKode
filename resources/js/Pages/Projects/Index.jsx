@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { Head, router } from '@inertiajs/react';
 import PublicLayout from '../../Layouts/PublicLayout';
 import ProjectCard from '../../Components/Portfolio/ProjectCard';
@@ -8,11 +8,26 @@ import InView from '../../Components/UI/InView';
 export default function ProjectsIndex({
     projects = [],
     filters = { search: '', sort: 'newest' },
+    activeCategory: propCategory,
+    categoryCounts = {},
     totalCount = 0,
 }) {
     const [searchTerm, setSearchTerm] = useState(filters.search || '');
     const [sortOption, setSortOption] = useState(filters.sort || 'newest');
     const searchTimeoutRef = useRef(null);
+
+    // Normalize category slug for active state: 'all' | 'design' | 'construction'
+    const normalizeCategory = (cat) => {
+        if (!cat || cat === 'all') return 'all';
+        const lower = String(cat).toLowerCase().trim();
+        if (lower === 'design' || lower === 'project design' || lower === 'project-design') return 'design';
+        if (lower === 'construction' || lower === 'project construction' || lower === 'project-construction') return 'construction';
+        return lower;
+    };
+
+    const activeCategory = useMemo(() => {
+        return normalizeCategory(propCategory || filters.category);
+    }, [propCategory, filters.category]);
 
     useEffect(() => {
         setSearchTerm(filters.search || '');
@@ -30,17 +45,31 @@ export default function ProjectsIndex({
         };
     }, []);
 
+    const executeNavigation = (newSearch, newSort, newCategory) => {
+        const query = {};
+        if (newSearch && newSearch.trim() !== '') {
+            query.search = newSearch.trim();
+        }
+        if (newSort && newSort !== 'newest') {
+            query.sort = newSort;
+        }
+        if (newCategory && newCategory !== 'all') {
+            query.category = newCategory;
+        }
+
+        router.get('/projects', query, {
+            preserveState: true,
+            replace: true,
+        });
+    };
+
     const handleSearchChange = (val) => {
         setSearchTerm(val);
         if (searchTimeoutRef.current) {
             clearTimeout(searchTimeoutRef.current);
         }
         searchTimeoutRef.current = setTimeout(() => {
-            router.get(
-                '/projects',
-                { search: val, sort: sortOption },
-                { preserveState: true, replace: true }
-            );
+            executeNavigation(val, sortOption, activeCategory);
         }, 300);
     };
 
@@ -49,19 +78,40 @@ export default function ProjectsIndex({
         if (searchTimeoutRef.current) {
             clearTimeout(searchTimeoutRef.current);
         }
-        router.get(
-            '/projects',
-            { search: searchTerm, sort: val },
-            { preserveState: true, replace: true }
-        );
+        executeNavigation(searchTerm, val, activeCategory);
     };
+
+    const handleCategoryChange = (catSlug) => {
+        if (searchTimeoutRef.current) {
+            clearTimeout(searchTimeoutRef.current);
+        }
+        executeNavigation(searchTerm, sortOption, catSlug);
+    };
+
+    const categoryTabs = [
+        {
+            id: 'all',
+            label: 'All Works',
+            count: categoryCounts?.all ?? totalCount,
+        },
+        {
+            id: 'design',
+            label: 'Project Design',
+            count: categoryCounts?.design,
+        },
+        {
+            id: 'construction',
+            label: 'Project Construction',
+            count: categoryCounts?.construction,
+        },
+    ];
 
     return (
         <PublicLayout>
             <Head title="Architectural Sanctuaries Portfolio" />
 
             <div className="max-w-7xl mx-auto px-6 py-16">
-                <InView className="max-w-2xl mb-12">
+                <InView className="max-w-2xl mb-10">
                     <span className="text-xs uppercase tracking-widest text-[#88B896] font-semibold">
                         Our Portfolio
                     </span>
@@ -72,6 +122,46 @@ export default function ProjectsIndex({
                         Each garden is conceived as a long-term ecological intervention, responding to microclimates, geological substrates, and contemplative spatial flow.
                     </p>
                 </InView>
+
+                {/* Category Switcher Tabs */}
+                <div className="mb-6 flex flex-wrap items-center gap-3">
+                    <div
+                        role="tablist"
+                        aria-label="Filter projects by discipline"
+                        className="inline-flex p-1 rounded-full bg-[#121814]/90 border border-white/15 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_4px_16px_rgba(0,0,0,0.3)] max-w-full overflow-x-auto"
+                    >
+                        {categoryTabs.map((tab) => {
+                            const isSelected = activeCategory === tab.id;
+                            return (
+                                <button
+                                    key={tab.id}
+                                    role="tab"
+                                    type="button"
+                                    aria-selected={isSelected}
+                                    onClick={() => handleCategoryChange(tab.id)}
+                                    className={`relative px-4 py-2 rounded-full text-xs uppercase tracking-widest transition-all duration-200 whitespace-nowrap focus:outline-none flex items-center gap-2 cursor-pointer ${
+                                        isSelected
+                                            ? 'bg-[#1C3024] text-[#F4F6F0] border border-emerald-500/40 shadow-[0_0_12px_rgba(52,211,153,0.18),inset_0_1px_0_rgba(255,255,255,0.15)] font-semibold'
+                                            : 'text-[#A8B0A6]/75 hover:text-[#F4F2ED] hover:bg-white/5 border border-transparent font-medium'
+                                    }`}
+                                >
+                                    <span>{tab.label}</span>
+                                    {typeof tab.count === 'number' && (
+                                        <span
+                                            className={`text-[10px] px-1.5 py-0.5 rounded-full transition-colors ${
+                                                isSelected
+                                                    ? 'bg-emerald-400/20 text-emerald-300 font-semibold'
+                                                    : 'bg-white/10 text-[#A8B0A6]'
+                                            }`}
+                                        >
+                                            {tab.count}
+                                        </span>
+                                    )}
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
 
                 <FilterBar
                     search={searchTerm}

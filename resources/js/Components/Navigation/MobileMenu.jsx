@@ -5,6 +5,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 export default function MobileMenu({ isOpen, onClose, navItems = [], currentUrl = '' }) {
     const pathname = (currentUrl || '').split('?')[0];
 
+    const currentCategory = (() => {
+        if (!currentUrl) return null;
+        const [path, search] = currentUrl.split('?');
+        if (path !== '/projects') return null;
+        if (!search) return 'all';
+        const params = new URLSearchParams(search);
+        const cat = (params.get('category') || '').toLowerCase().trim();
+        if (cat === 'design' || cat === 'project design' || cat === 'project-design') return 'design';
+        if (cat === 'construction' || cat === 'project construction' || cat === 'project-construction') return 'construction';
+        return 'all';
+    })();
+
     return (
         <AnimatePresence>
             {isOpen && (
@@ -21,18 +33,47 @@ export default function MobileMenu({ isOpen, onClose, navItems = [], currentUrl 
                         {navItems.map((item) => {
                             const active = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);
                             return (
-                                <Link
-                                    key={item.name}
-                                    href={item.href}
-                                    onClick={onClose}
-                                    className={`py-2 px-3 rounded-xl transition-all ${
-                                        active
-                                            ? 'text-emerald-400 font-semibold bg-white/5 border-l-2 border-emerald-400'
-                                            : 'text-[#C5C8C0] hover:text-white hover:bg-white/5'
-                                    }`}
-                                >
-                                    {item.name}
-                                </Link>
+                                <React.Fragment key={item.name}>
+                                    <Link
+                                        href={item.href}
+                                        onClick={onClose}
+                                        className={`py-2 px-3 rounded-xl transition-all ${
+                                            active
+                                                ? 'text-emerald-400 font-semibold bg-white/5 border-l-2 border-emerald-400'
+                                                : 'text-[#C5C8C0] hover:text-white hover:bg-white/5'
+                                        }`}
+                                    >
+                                        {item.name}
+                                    </Link>
+                                    {item.name === 'Projects' && (
+                                        <div className="pl-4 pr-1 py-1 flex flex-col space-y-1">
+                                            <Link
+                                                href="/projects?category=design"
+                                                onClick={onClose}
+                                                className={`py-1.5 px-3 rounded-lg text-xs transition-colors flex items-center justify-between ${
+                                                    currentCategory === 'design'
+                                                        ? 'text-emerald-300 font-semibold bg-white/10'
+                                                        : 'text-[#A8B0A6] hover:text-[#88B896] hover:bg-white/5'
+                                                }`}
+                                            >
+                                                <span>Project Design</span>
+                                                <span className="text-[10px] uppercase tracking-wider text-emerald-400/80">Concept</span>
+                                            </Link>
+                                            <Link
+                                                href="/projects?category=construction"
+                                                onClick={onClose}
+                                                className={`py-1.5 px-3 rounded-lg text-xs transition-colors flex items-center justify-between ${
+                                                    currentCategory === 'construction'
+                                                        ? 'text-emerald-300 font-semibold bg-white/10'
+                                                        : 'text-[#A8B0A6] hover:text-[#88B896] hover:bg-white/5'
+                                                }`}
+                                            >
+                                                <span>Project Construction</span>
+                                                <span className="text-[10px] uppercase tracking-wider text-emerald-400/80">Build</span>
+                                            </Link>
+                                        </div>
+                                    )}
+                                </React.Fragment>
                             );
                         })}
                     </nav>

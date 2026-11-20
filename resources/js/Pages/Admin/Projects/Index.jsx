@@ -20,8 +20,17 @@ import { id } from '../../../lib/id';
 import { resolveImageUrl } from '../../../Components/Admin/ProjectGalleryManager';
 
 export default function Index({ projects, filters = {} }) {
+    const normalizeAdminCategory = (cat) => {
+        if (!cat) return '';
+        const lower = String(cat).toLowerCase().trim();
+        if (lower === 'design' || lower === 'project design' || lower === 'project-design') return 'Project Design';
+        if (lower === 'construction' || lower === 'project construction' || lower === 'project-construction') return 'Project Construction';
+        return cat;
+    };
+
     const [search, setSearch] = useState(filters.search || '');
     const [featured, setFeatured] = useState(filters.featured ?? '');
+    const [category, setCategory] = useState(normalizeAdminCategory(filters.category ?? ''));
     const [deletingId, setDeletingId] = useState(null);
 
     // Normalize projects list whether paginated object or raw collection
@@ -30,13 +39,16 @@ export default function Index({ projects, filters = {} }) {
         : projects?.data || [];
     const paginationLinks = !Array.isArray(projects) ? projects?.links : null;
 
-    const applyFilters = (newSearch, newFeatured) => {
+    const applyFilters = (newSearch, newFeatured, newCategory) => {
         const query = {};
         if (newSearch && newSearch.trim() !== '') {
             query.search = newSearch.trim();
         }
         if (newFeatured !== '' && newFeatured !== null && newFeatured !== undefined) {
             query.featured = newFeatured;
+        }
+        if (newCategory && newCategory !== 'all') {
+            query.category = newCategory;
         }
 
         router.get('/admin/projects', query, {
@@ -47,17 +59,22 @@ export default function Index({ projects, filters = {} }) {
 
     const handleSearchSubmit = (e) => {
         e.preventDefault();
-        applyFilters(search, featured);
+        applyFilters(search, featured, category);
     };
 
     const handleClearSearch = () => {
         setSearch('');
-        applyFilters('', featured);
+        applyFilters('', featured, category);
     };
 
     const handleFeaturedChange = (val) => {
         setFeatured(val);
-        applyFilters(search, val);
+        applyFilters(search, val, category);
+    };
+
+    const handleCategoryChange = (val) => {
+        setCategory(val);
+        applyFilters(search, featured, val);
     };
 
     const handleDelete = (project) => {
@@ -122,10 +139,23 @@ export default function Index({ projects, filters = {} }) {
                         )}
                     </form>
 
-                    {/* Featured Filter Dropdown */}
-                    <div className="flex items-center space-x-3 self-end md:self-auto">
+                    {/* Category & Featured Filter Dropdowns */}
+                    <div className="flex flex-wrap items-center gap-3 self-end md:self-auto">
                         <div className="flex items-center space-x-2 text-xs text-stone-400">
                             <Filter className="w-3.5 h-3.5" />
+                            <span>Kategori:</span>
+                        </div>
+                        <select
+                            value={category}
+                            onChange={(e) => handleCategoryChange(e.target.value)}
+                            className="text-xs px-3 py-2 border border-white/10 rounded bg-[#0E1310]/80 backdrop-blur-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] text-stone-200 focus:outline-none focus:ring-1 focus:ring-emerald-500/50 focus:border-emerald-500/50"
+                        >
+                            <option value="">{id.projects.filter_all_categories || 'Semua Kategori'}</option>
+                            <option value="Project Design">{id.projects.filter_category_design || 'Project Design'}</option>
+                            <option value="Project Construction">{id.projects.filter_category_construction || 'Project Construction'}</option>
+                        </select>
+
+                        <div className="flex items-center space-x-2 text-xs text-stone-400 ml-2">
                             <span>Unggulan:</span>
                         </div>
                         <select
@@ -149,6 +179,7 @@ export default function Index({ projects, filters = {} }) {
                             <tr className="border-b border-white/10 bg-[#0E1310]/70 text-[11px] uppercase tracking-wider text-stone-400 font-semibold">
                                 <th className="py-3 px-4 w-20">{id.projects.table.thumbnail}</th>
                                 <th className="py-3 px-4">{id.projects.table.title}</th>
+                                <th className="py-3 px-4">{id.projects.table.category || 'Kategori'}</th>
                                 <th className="py-3 px-4">{id.projects.table.location}</th>
                                 <th className="py-3 px-4">{id.projects.table.area}</th>
                                 <th className="py-3 px-4 text-center">{id.projects.table.status}</th>
@@ -160,10 +191,10 @@ export default function Index({ projects, filters = {} }) {
                         <tbody className="divide-y divide-white/5 text-xs">
                             {projectList.length === 0 ? (
                                 <tr>
-                                    <td colSpan="8" className="py-12 text-center text-stone-400">
+                                    <td colSpan="9" className="py-12 text-center text-stone-400">
                                         <Layers className="w-10 h-10 mx-auto text-stone-500/40 mb-2" />
                                         <p className="text-sm font-medium text-stone-300">
-                                            {search || featured !== ''
+                                            {search || featured !== '' || category !== ''
                                                 ? id.projects.empty_filtered
                                                 : id.projects.empty_state}
                                         </p>
@@ -212,6 +243,13 @@ export default function Index({ projects, filters = {} }) {
                                                         Klien privat
                                                     </div>
                                                 )}
+                                            </td>
+
+                                            {/* Category */}
+                                            <td className="py-3 px-4 whitespace-nowrap">
+                                                <span className="px-2.5 py-1 rounded text-[10px] font-medium tracking-wide bg-emerald-950/60 text-emerald-300 border border-emerald-500/20">
+                                                    {project.category || 'Project Design'}
+                                                </span>
                                             </td>
 
                                             {/* Location & Year */}

@@ -16,22 +16,28 @@ class ProjectController extends Controller
     {
         $query = Project::query()->published();
 
+        // Category filter: "all", "design", "construction", "Project Design", or "Project Construction"
+        $rawCategory = $request->input('category', 'all');
+        $categoryParam = is_string($rawCategory) ? trim($rawCategory) : 'all';
+        if (!empty($categoryParam) && strtolower($categoryParam) !== 'all') {
+            $query->category($categoryParam);
+        }
+
         // Search by keyword, title, location, client, or description
-        if ($request->filled('search')) {
-            $search = trim((string) $request->input('search'));
-            if ($search !== '') {
-                $query->where(function ($q) use ($search) {
-                    $q->where('title', 'like', "%{$search}%")
-                      ->orWhere('location', 'like', "%{$search}%")
-                      ->orWhere('excerpt', 'like', "%{$search}%")
-                      ->orWhere('description', 'like', "%{$search}%")
-                      ->orWhere('client', 'like', "%{$search}%");
-                });
-            }
+        $rawSearch = $request->input('search');
+        if (is_string($rawSearch) && trim($rawSearch) !== '') {
+            $search = trim($rawSearch);
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('location', 'like', "%{$search}%")
+                  ->orWhere('excerpt', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%")
+                  ->orWhere('client', 'like', "%{$search}%");
+            });
         }
 
         // Sort handling: newest, oldest, or largest area size in m²
-        $sort = $request->input('sort', 'newest');
+        $sort = is_string($request->input('sort')) ? (string) $request->input('sort') : 'newest';
         switch ($sort) {
             case 'oldest':
                 $query->orderBy('year', 'asc')->orderBy('id', 'asc');
@@ -52,13 +58,29 @@ class ProjectController extends Controller
 
         $projects = $query->get();
 
+        $totalPublished = Project::published()->count();
+        $designCount = Project::published()->where('category', Project::CATEGORY_DESIGN)->count();
+        $constructionCount = Project::published()->where('category', Project::CATEGORY_CONSTRUCTION)->count();
+
+        $filters = [
+            'search' => is_string($rawSearch) ? $rawSearch : '',
+            'sort' => $sort,
+        ];
+
+        if ($request->has('category') && is_string($rawCategory)) {
+            $filters['category'] = $categoryParam;
+        }
+
         return Inertia::render('Projects/Index', [
             'projects' => $projects,
-            'filters' => [
-                'search' => $request->input('search', ''),
-                'sort' => $sort,
+            'filters' => $filters,
+            'activeCategory' => $categoryParam ?: 'all',
+            'categoryCounts' => [
+                'all' => $totalPublished,
+                'design' => $designCount,
+                'construction' => $constructionCount,
             ],
-            'totalCount' => Project::published()->count(),
+            'totalCount' => $totalPublished,
         ]);
     }
 
@@ -79,6 +101,7 @@ class ProjectController extends Controller
                 'id',
                 'title',
                 'slug',
+                'category',
                 'location',
                 'area_size',
                 'year',

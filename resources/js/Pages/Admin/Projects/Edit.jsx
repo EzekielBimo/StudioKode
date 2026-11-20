@@ -55,6 +55,7 @@ export default function Edit({ project }) {
         location: project.location || '',
         year: project.year || new Date().getFullYear(),
         area_size: project.area_size || '',
+        category: project.category || 'Project Design',
         cover_image: null,
         masterplan_image: null,
         is_featured: Boolean(project.is_featured),
@@ -410,6 +411,21 @@ export default function Edit({ project }) {
                             <h2 className="text-xs font-semibold uppercase tracking-wider text-stone-300 pb-2 border-b border-white/10">
                                 Status & Pengaturan
                             </h2>
+
+                            {/* Category Selector */}
+                            <div>
+                                <label className="block text-xs font-semibold text-stone-300 mb-1.5">
+                                    {id.projects.fields.category || 'Kategori Proyek'} <span className="text-rose-400">*</span>
+                                </label>
+                                <select
+                                    value={data.category}
+                                    onChange={(e) => setData('category', e.target.value)}
+                                    className="w-full text-xs px-3 py-2 border border-white/10 rounded bg-[#0E1310]/80 text-stone-100 focus:outline-none focus:ring-1 focus:ring-emerald-500/50 focus:border-emerald-500/50"
+                                >
+                                    <option value="Project Design">Project Design</option>
+                                    <option value="Project Construction">Project Construction</option>
+                                </select>
+                            </div>
 
                             {/* Featured Toggle */}
                             <div className="flex items-start space-x-3 pt-1">

@@ -22,6 +22,13 @@ export default function ProjectCard({ project, priority = false, delay = 0 }) {
                             <Badge variant="foliage">Featured Sanctuary</Badge>
                         </div>
                     )}
+                    {project.category && (
+                        <div className="absolute top-4 right-4">
+                            <span className="px-2.5 py-1 text-[10px] uppercase tracking-widest font-medium rounded-full bg-[#0B0E0C]/85 text-[#88B896] border border-white/15 backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                                {project.category}
+                            </span>
+                        </div>
+                    )}
                 </div>
 
                 <div className="pt-4 pb-2">
