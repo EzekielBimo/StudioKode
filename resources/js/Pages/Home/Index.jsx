@@ -19,29 +19,31 @@ export default function HomeIndex({
             <section className="relative min-h-[85vh] flex items-center justify-center bg-[#0B0E0C] text-[#F4F2ED] px-6 overflow-hidden">
                 <div className="absolute inset-0">
                     <img
-                        src="/assets/backgrounds/hero-landscape.webp"
+                        src="/assets/backgrounds/hero-landscape.webp?v=sanctuary_v2"
                         alt="Sanctuary landscape"
-                        className="w-full h-full object-cover"
-                        width="1200"
-                        height="800"
+                        className="w-full h-full object-cover object-center"
+                        width="1920"
+                        height="1080"
                         fetchpriority="high"
+                        loading="eager"
+                        decoding="async"
                     />
-                    {/* Atmospheric gradient overlay for serene landscape depth & high text legibility */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-[#0B0E0C]/80 via-[#0B0E0C]/50 to-[#0B0E0C]" />
+                    {/* Atmospheric gradient overlay calibrated for image vibrancy & high text legibility */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/20 to-[#0B0E0C]/80" />
                 </div>
                 <div className="relative max-w-4xl mx-auto text-center space-y-8 py-20">
                     <InView initial="visible">
-                        <span className="text-xs uppercase tracking-[0.25em] text-[#88B896] font-medium">
+                        <span className="text-xs uppercase tracking-[0.25em] text-[#88B896] font-medium drop-shadow-sm">
                             StudioKode Landscape Architecture
                         </span>
                     </InView>
                     <InView delay={0.1} initial="visible">
-                        <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl leading-[1.08] tracking-tight">
+                        <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl leading-[1.08] tracking-tight drop-shadow-md">
                             Mediating between architectural form and untamed nature.
                         </h1>
                     </InView>
                     <InView delay={0.2} initial="visible">
-                        <p className="text-base sm:text-lg text-[#C4C9C3]/90 font-light max-w-2xl mx-auto leading-relaxed">
+                        <p className="text-base sm:text-lg text-[#F4F2ED]/90 font-light max-w-2xl mx-auto leading-relaxed drop-shadow">
                             Crafting living topographies, dry-stone masonry, and biodiverse botanical tapestries for generational private estates.
                         </p>
                     </InView>
