@@ -16,16 +16,18 @@ export default function HomeIndex({
             <Head title="Architectural Sanctuaries & Botanical Landscape Design" />
 
             {/* Hero Section */}
-            <section className="relative min-h-[85vh] flex items-center justify-center bg-gradient-to-b from-[#0B0E0C] via-[#0E1310] to-[#0B0E0C] text-[#F4F2ED] px-6 overflow-hidden">
-                <div className="absolute inset-0 opacity-40 mix-blend-overlay">
+            <section className="relative min-h-[85vh] flex items-center justify-center bg-[#0B0E0C] text-[#F4F2ED] px-6 overflow-hidden">
+                <div className="absolute inset-0">
                     <img
-                        src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=70"
+                        src="/assets/backgrounds/hero-landscape.webp"
                         alt="Sanctuary landscape"
                         className="w-full h-full object-cover"
                         width="1200"
                         height="800"
                         fetchpriority="high"
                     />
+                    {/* Atmospheric gradient overlay for serene landscape depth & high text legibility */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-[#0B0E0C]/80 via-[#0B0E0C]/50 to-[#0B0E0C]" />
                 </div>
                 <div className="relative max-w-4xl mx-auto text-center space-y-8 py-20">
                     <InView initial="visible">
