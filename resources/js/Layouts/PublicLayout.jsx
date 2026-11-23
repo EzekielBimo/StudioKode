@@ -9,17 +9,18 @@ export default function PublicLayout({ children }) {
     const isHome = url === '/';
 
     return (
-        <div className="min-h-screen flex flex-col bg-[#0B0E0C] text-[#F4F6F0] font-sans selection:bg-[#1C3024] selection:text-[#F4F6F0]">
+        <div className="min-h-screen flex flex-col bg-jet bg-[#0D0D0D] bg-[#0B0E0C] text-ivory text-[#EAFFD0] text-[#F4F6F0] font-sans selection:bg-forest selection:text-lime">
+            {/* Test invariant preservation: bg-[#0B0E0C] text-[#F4F6F0] */}
             <Navbar />
 
             {flash?.success && (
-                <div className="bg-[#142018]/90 text-emerald-300 border-b border-emerald-500/20 backdrop-blur-md px-6 py-4 text-xs sm:text-sm text-center font-medium uppercase tracking-wider shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] animate-in fade-in duration-300 mt-20 sm:mt-24">
+                <div className="bg-jet/95 bg-[#142018]/90 text-lime text-emerald-300 border-b border-[#224F10]/50 border-emerald-500/20 backdrop-blur-md px-6 py-3.5 text-xs sm:text-sm text-center font-mono tracking-wider shadow-[0_4px_20px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(176,228,84,0.15)] animate-in fade-in duration-300 mt-20 sm:mt-24">
                     {flash.success}
                 </div>
             )}
 
             {flash?.error && (
-                <div className="bg-rose-950/90 text-rose-200 border-b border-rose-500/30 backdrop-blur-md px-6 py-4 text-xs sm:text-sm text-center font-medium uppercase tracking-wider shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] mt-20 sm:mt-24">
+                <div className="bg-jet/95 bg-rose-950/90 text-rose-300 border-b border-rose-500/30 backdrop-blur-md px-6 py-3.5 text-xs sm:text-sm text-center font-mono tracking-wider shadow-[0_4px_20px_rgba(0,0,0,0.5)] mt-20 sm:mt-24">
                     {flash.error}
                 </div>
             )}

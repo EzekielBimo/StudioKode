@@ -9,12 +9,13 @@
 
         <title inertia>{{ config('app.name', 'StudioKode') }}</title>
 
-        <!-- Google Fonts: Cormorant Garamond (Luxury Display Serif) & Plus Jakarta Sans (Geometric Sans) -->
+        <!-- Google Fonts: Instrument Serif (Editorial Display Serif) & Plus Jakarta Sans (Geometric Sans) -->
+        <!-- Legacy Fallback Preservation: Cormorant Garamond -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+        <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
         <noscript>
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
+            <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap">
         </noscript>
 
         <!-- Scripts & Styles -->
@@ -23,6 +24,7 @@
         @inertiaHead
     </head>
     <body class="font-sans antialiased bg-[#0B0E0C] text-[#F4F6F0] selection:bg-[#1C3024] selection:text-[#F4F6F0] min-h-screen flex flex-col">
+        <!-- StudioKode Architectural Palette: Jet (#0D0D0D), Forest (#224F10), Lime (#B0E454), Ivory (#EAFFD0) -->
         <script data-page="app" type="application/json">{!! json_encode($page, JSON_HEX_TAG) !!}</script>
         <div id="app" data-page="{{ json_encode($page) }}">
             <!-- Instant Branded Loading Shell for StudioKode -->

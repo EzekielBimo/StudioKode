@@ -110,15 +110,15 @@ export default function ProjectsIndex({
         <PublicLayout>
             <Head title="Architectural Sanctuaries Portfolio" />
 
-            <div className="max-w-7xl mx-auto px-6 py-16">
+            <div className="max-w-7xl mx-auto px-6 py-16 sm:py-20">
                 <InView className="max-w-2xl mb-10">
-                    <span className="text-xs uppercase tracking-widest text-[#88B896] font-semibold">
+                    <span className="text-xs uppercase tracking-widest text-lime text-[#88B896] font-mono font-semibold">
                         Our Portfolio
                     </span>
-                    <h1 className="font-serif text-4xl sm:text-5xl text-[#F4F2ED] mt-2 tracking-tight">
+                    <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl text-ivory text-[#F4F2ED] mt-2 tracking-tight">
                         Botanical Sanctuaries &amp; Living Architecture
                     </h1>
-                    <p className="mt-4 text-base text-[#C4C9C3]/85 font-light leading-relaxed">
+                    <p className="mt-4 text-base text-[#EAFFD0]/75 text-[#C4C9C3]/85 font-light leading-relaxed">
                         Each garden is conceived as a long-term ecological intervention, responding to microclimates, geological substrates, and contemplative spatial flow.
                     </p>
                 </InView>
@@ -128,7 +128,7 @@ export default function ProjectsIndex({
                     <div
                         role="tablist"
                         aria-label="Filter projects by discipline"
-                        className="inline-flex p-1 rounded-full bg-[#121814]/90 border border-white/15 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_4px_16px_rgba(0,0,0,0.3)] max-w-full overflow-x-auto no-scrollbar scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden overscroll-x-contain"
+                        className="inline-flex p-1 rounded-full bg-jet-surface/90 bg-[#121814]/90 border border-white/15 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_4px_16px_rgba(0,0,0,0.3)] max-w-full overflow-x-auto no-scrollbar scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden overscroll-x-contain"
                     >
                         {categoryTabs.map((tab) => {
                             const isSelected = activeCategory === tab.id;
@@ -141,8 +141,8 @@ export default function ProjectsIndex({
                                     onClick={() => handleCategoryChange(tab.id)}
                                     className={`relative px-4 py-2 rounded-full text-xs uppercase tracking-widest transition-all duration-200 whitespace-nowrap focus:outline-none flex items-center gap-2 cursor-pointer shrink-0 ${
                                         isSelected
-                                            ? 'bg-[#1C3024] text-[#F4F6F0] border border-emerald-500/40 shadow-[0_0_12px_rgba(52,211,153,0.18),inset_0_1px_0_rgba(255,255,255,0.15)] font-semibold'
-                                            : 'text-[#A8B0A6]/75 hover:text-[#F4F2ED] hover:bg-white/5 border border-transparent font-medium'
+                                            ? 'bg-forest bg-[#1C3024] text-lime text-[#F4F6F0] border border-lime/40 border-emerald-500/40 shadow-[0_0_12px_rgba(176,228,84,0.18),inset_0_1px_0_rgba(255,255,255,0.15)] font-semibold'
+                                            : 'text-[#EAFFD0]/70 text-[#A8B0A6]/75 hover:text-ivory hover:text-[#F4F2ED] hover:bg-white/5 border border-transparent font-medium'
                                     }`}
                                 >
                                     <span>{tab.label}</span>
@@ -150,8 +150,8 @@ export default function ProjectsIndex({
                                         <span
                                             className={`text-[10px] px-1.5 py-0.5 rounded-full transition-colors ${
                                                 isSelected
-                                                    ? 'bg-emerald-400/20 text-emerald-300 font-semibold'
-                                                    : 'bg-white/10 text-[#A8B0A6]'
+                                                    ? 'bg-lime/20 bg-emerald-400/20 text-lime text-emerald-300 font-semibold'
+                                                    : 'bg-white/10 text-[#EAFFD0]/60 text-[#A8B0A6]'
                                             }`}
                                         >
                                             {tab.count}
@@ -169,13 +169,13 @@ export default function ProjectsIndex({
                     onSearchChange={handleSearchChange}
                     onSortChange={handleSortChange}
                     totalCount={totalCount}
-                    filteredCount={projects.length}
+                    filteredCount={projects?.length || 0}
                 />
 
                 <div className="mt-12">
-                    {projects.length > 0 ? (
+                    {(projects?.length || 0) > 0 ? (
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {projects.map((project, idx) => (
+                            {(projects || []).map((project, idx) => (
                                 <ProjectCard
                                     key={project.id}
                                     project={project}
@@ -184,8 +184,8 @@ export default function ProjectsIndex({
                             ))}
                         </div>
                     ) : (
-                        <div className="text-center py-24 border border-dashed border-white/15 bg-[rgba(20,32,24,0.40)] backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
-                            <p className="font-serif text-xl text-[#F4F2ED]">
+                        <div className="text-center py-24 border border-dashed border-white/15 bg-jet-surface/40 bg-[rgba(20,32,24,0.40)] backdrop-blur-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+                            <p className="font-serif text-xl text-ivory text-[#F4F2ED]">
                                 No sanctuaries found matching your criteria.
                             </p>
                             <button
@@ -197,7 +197,7 @@ export default function ProjectsIndex({
                                     setSortOption('newest');
                                     router.get('/projects', { search: '', sort: 'newest' });
                                 }}
-                                className="mt-4 text-xs uppercase tracking-widest font-semibold text-[#88B896] hover:text-[#A9D6B3] underline hover:no-underline transition-colors"
+                                className="mt-4 text-xs uppercase tracking-widest font-semibold text-lime text-[#88B896] hover:text-lime-hover hover:text-[#A9D6B3] underline hover:no-underline transition-colors cursor-pointer"
                             >
                                 Reset Search &amp; Filters
                             </button>

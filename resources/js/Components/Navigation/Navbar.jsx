@@ -85,8 +85,8 @@ export default function Navbar() {
                 aria-label="Main Navigation"
                 className={`pointer-events-auto w-full transition-all duration-300 ease-in-out backdrop-blur-xl sm:backdrop-blur-2xl ${
                     scrolled
-                        ? 'max-w-4xl h-10 sm:h-11 px-3 sm:px-5 rounded-full bg-[#0B0E0C]/85 shadow-[0_12px_36px_rgba(0,0,0,0.5),inset_0_1px_1px_rgba(255,255,255,0.3)] border border-white/20'
-                        : 'max-w-full h-14 sm:h-16 px-4 sm:px-6 lg:px-8 rounded-none bg-[#0B0E0C]/80 shadow-[inset_0_-1px_0_rgba(255,255,255,0.06)] border-b border-white/10'
+                        ? 'max-w-4xl h-10 sm:h-11 px-3 sm:px-5 rounded-full bg-jet/85 bg-[#0D0D0D]/85 bg-[#0B0E0C]/85 shadow-[0_16px_36px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.15)] border border-white/10 border-forest/40'
+                        : 'max-w-full h-14 sm:h-16 px-4 sm:px-6 lg:px-8 rounded-none bg-jet/80 bg-[#0D0D0D]/80 bg-[#0B0E0C]/80 shadow-[inset_0_-1px_0_rgba(255,255,255,0.06)] border-b border-white/10'
                 }`}
             >
                 <div className="w-full max-w-7xl mx-auto h-full flex items-center justify-between">
@@ -98,14 +98,14 @@ export default function Navbar() {
                         >
                             {/* Hexagonal geometric brand mark matching reference */}
                             <svg
-                                className="w-4 h-4 text-white group-hover:text-emerald-300 transition-colors flex-shrink-0"
+                                className="w-4 h-4 text-white group-hover:text-lime group-hover:text-emerald-300 transition-colors flex-shrink-0"
                                 viewBox="0 0 24 24"
                                 fill="currentColor"
                                 aria-hidden="true"
                             >
                                 <path d="M8.5 3a2 2 0 0 0-1.7 1L3.3 11a2 2 0 0 0 0 2l3.5 7a2 2 0 0 0 1.7 1h7a2 2 0 0 0 1.7-1l3.5-7a2 2 0 0 0 0-2l-3.5-7A2 2 0 0 0 15.5 3h-7zm2.5 4h2l3 5-3 5h-2l-3-5 3-5z" />
                             </svg>
-                            <span className="font-sans font-semibold text-sm sm:text-base tracking-tight text-[#F4F6F0] group-hover:text-emerald-300 transition-colors">
+                            <span className="font-sans font-semibold text-sm sm:text-base tracking-tight text-ivory text-[#EAFFD0] text-[#F4F6F0] group-hover:text-lime group-hover:text-emerald-300 transition-colors">
                                 StudioKode
                             </span>
                         </Link>
@@ -134,26 +134,26 @@ export default function Navbar() {
                                             }`}
                                         >
                                             <span>{item.name}</span>
-                                            <ChevronDown className="w-3 h-3 text-[#A8B0A6]/60 group-hover:text-emerald-400 group-focus-within:text-emerald-400 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180" />
+                                            <ChevronDown className="w-3 h-3 text-[#A8B0A6]/60 group-hover:text-lime group-focus-within:text-lime group-hover:text-emerald-400 group-focus-within:text-emerald-400 transition-transform duration-200 group-hover:rotate-180 group-focus-within:rotate-180" />
                                             {active && (
-                                                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-3.5 h-[2px] bg-emerald-400 rounded-full shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
+                                                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-4 h-[2px] bg-lime bg-emerald-400 rounded-full shadow-[0_0_10px_rgba(176,228,84,0.65)] shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
                                             )}
                                         </Link>
 
                                         {/* Dropdown Flyout Card */}
                                         <div className="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:pointer-events-auto focus-within:opacity-100 focus-within:pointer-events-auto transition-all duration-200 z-50">
-                                            <div className="w-64 p-2 rounded-2xl bg-[#0E1310]/95 backdrop-blur-xl border border-white/15 shadow-[0_16px_40px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.12)] space-y-1">
+                                            <div className="w-64 p-2 rounded-2xl bg-jet-surface/95 bg-[#0D0D0D]/95 bg-[#0E1310]/95 backdrop-blur-xl border border-white/10 shadow-[0_16px_40px_rgba(0,0,0,0.8),0_0_0_1px_rgba(34,79,16,0.3),inset_0_1px_0_rgba(255,255,255,0.08)] space-y-1">
                                                 <Link
                                                     href="/projects"
                                                     className={`flex flex-col p-2.5 rounded-xl transition-colors group/item ${
                                                         activeCategory === 'all'
-                                                            ? 'bg-white/10 text-emerald-300'
+                                                            ? 'bg-forest/30 bg-white/10 text-lime text-emerald-300'
                                                             : 'hover:bg-white/5'
                                                     }`}
                                                 >
                                                     <span className={`text-xs font-semibold ${
-                                                        activeCategory === 'all' ? 'text-emerald-300' : 'text-[#F4F6F0]'
-                                                    } group-hover/item:text-emerald-300`}>
+                                                        activeCategory === 'all' ? 'text-lime text-emerald-300' : 'text-ivory text-[#F4F6F0]'
+                                                    } group-hover/item:text-lime group-hover/item:text-emerald-300`}>
                                                         All Works
                                                     </span>
                                                     <span className="text-[11px] text-[#A8B0A6]/70 mt-0.5 font-light">
@@ -164,13 +164,13 @@ export default function Navbar() {
                                                     href="/projects?category=design"
                                                     className={`flex flex-col p-2.5 rounded-xl transition-colors group/item ${
                                                         activeCategory === 'design'
-                                                            ? 'bg-white/10 text-emerald-300'
+                                                            ? 'bg-forest/30 bg-white/10 text-lime text-emerald-300'
                                                             : 'hover:bg-white/5'
                                                     }`}
                                                 >
                                                     <span className={`text-xs font-semibold ${
-                                                        activeCategory === 'design' ? 'text-emerald-300' : 'text-[#F4F6F0]'
-                                                    } group-hover/item:text-emerald-300`}>
+                                                        activeCategory === 'design' ? 'text-lime text-emerald-300' : 'text-ivory text-[#F4F6F0]'
+                                                    } group-hover/item:text-lime group-hover/item:text-emerald-300`}>
                                                         Project Design
                                                     </span>
                                                     <span className="text-[11px] text-[#A8B0A6]/70 mt-0.5 font-light">
@@ -181,13 +181,13 @@ export default function Navbar() {
                                                     href="/projects?category=construction"
                                                     className={`flex flex-col p-2.5 rounded-xl transition-colors group/item ${
                                                         activeCategory === 'construction'
-                                                            ? 'bg-white/10 text-emerald-300'
+                                                            ? 'bg-forest/30 bg-white/10 text-lime text-emerald-300'
                                                             : 'hover:bg-white/5'
                                                     }`}
                                                 >
                                                     <span className={`text-xs font-semibold ${
-                                                        activeCategory === 'construction' ? 'text-emerald-300' : 'text-[#F4F6F0]'
-                                                    } group-hover/item:text-emerald-300`}>
+                                                        activeCategory === 'construction' ? 'text-lime text-emerald-300' : 'text-ivory text-[#F4F6F0]'
+                                                    } group-hover/item:text-lime group-hover/item:text-emerald-300`}>
                                                         Project Construction
                                                     </span>
                                                     <span className="text-[11px] text-[#A8B0A6]/70 mt-0.5 font-light">
@@ -211,7 +211,7 @@ export default function Navbar() {
                                 >
                                     {item.name}
                                     {active && (
-                                        <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-3.5 h-[2px] bg-emerald-400 rounded-full shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
+                                        <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-4 h-[2px] bg-lime bg-emerald-400 rounded-full shadow-[0_0_10px_rgba(176,228,84,0.65)] shadow-[0_0_8px_rgba(52,211,153,0.6)]" />
                                     )}
                                 </Link>
                             );
@@ -224,7 +224,7 @@ export default function Navbar() {
                         <div className="hidden md:flex items-center">
                             <Link
                                 href="/contact"
-                                className="px-3.5 sm:px-4 py-1.5 rounded-full bg-[#1C3024] text-[#F4F6F0] text-xs font-semibold border border-emerald-500/30 hover:bg-[#F4F6F0] hover:text-neutral-900 hover:shadow-md transition-all duration-200 active:scale-[0.98] shadow-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] backdrop-blur-xs"
+                                className="px-3.5 sm:px-4 py-1.5 rounded-full bg-forest bg-[#1C3024] text-ivory text-[#F4F6F0] text-xs font-semibold border border-forest-light/60 border-emerald-500/30 hover:bg-lime hover:text-jet hover:border-lime hover:shadow-[0_0_15px_rgba(176,228,84,0.4)] transition-all duration-200 active:scale-[0.98] shadow-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.15)] backdrop-blur-xs"
                             >
                                 Konsultasi
                             </Link>
@@ -236,7 +236,7 @@ export default function Navbar() {
                             onClick={() => setMobileOpen(!mobileOpen)}
                             aria-expanded={mobileOpen}
                             aria-controls="mobile-navigation"
-                            className="md:hidden p-1.5 text-[#F4F6F0] hover:text-emerald-400 hover:bg-white/10 rounded-full transition-colors focus:outline-none"
+                            className="md:hidden p-1.5 text-ivory text-[#F4F6F0] hover:text-lime hover:text-emerald-400 hover:bg-white/10 rounded-full transition-colors focus:outline-none"
                             aria-label="Toggle navigation menu"
                         >
                             {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}

@@ -4,51 +4,52 @@ import Modal from '../UI/Modal';
 import { Maximize2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function ImageGallery({ images = [] }) {
+    const safeImages = Array.isArray(images) ? images : [];
     const [selectedIndex, setSelectedIndex] = useState(null);
 
     useEffect(() => {
         const handleKeyDown = (e) => {
             if (selectedIndex === null) return;
             if (e.key === 'ArrowLeft') {
-                setSelectedIndex((prev) => (prev - 1 + images.length) % images.length);
+                setSelectedIndex((prev) => (prev - 1 + safeImages.length) % safeImages.length);
             } else if (e.key === 'ArrowRight') {
-                setSelectedIndex((prev) => (prev + 1) % images.length);
+                setSelectedIndex((prev) => (prev + 1) % safeImages.length);
             }
         };
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [selectedIndex, images.length]);
+    }, [selectedIndex, safeImages.length]);
 
-    if (!images || images.length === 0) return null;
+    if (safeImages.length === 0) return null;
 
-    const currentImage = selectedIndex !== null ? images[selectedIndex] : null;
+    const currentImage = selectedIndex !== null ? safeImages[selectedIndex] : null;
 
     return (
         <div>
             {/* Gallery Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {images.map((img, idx) => (
+                {safeImages.map((img, idx) => (
                     <InView key={img.id || idx} delay={idx * 0.08} className="group relative">
                         <div
                             onClick={() => setSelectedIndex(idx)}
-                            className="aspect-[4/3] overflow-hidden bg-[#121814] border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] cursor-pointer relative"
+                            className="aspect-[4/3] overflow-hidden bg-[#121814] bg-[#0D0D0D] border border-white/10 group-hover:border-[#B0E454]/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] cursor-pointer relative transition-colors duration-500"
                         >
                             <img
                                 src={img.image_path}
                                 alt={img.caption || 'Project visual'}
-                                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 group-hover:scale-[1.03]"
                                 loading="lazy"
                                 decoding="async"
                             />
                             <div className="absolute inset-0 bg-black/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <span className="p-3 bg-[#121814]/90 backdrop-blur-md border border-white/15 rounded-full text-[#F4F2ED] shadow-xl group-hover:border-[#88B896]/50 transform scale-90 group-hover:scale-100 transition-all">
+                                <span className="p-3 bg-[#121814]/90 bg-[#0D0D0D]/90 backdrop-blur-md border border-white/15 group-hover:border-[#B0E454]/50 rounded-full text-[#F4F2ED] text-[#EAFFD0] shadow-xl transform scale-90 group-hover:scale-100 transition-all">
                                     <Maximize2 className="w-5 h-5" />
                                 </span>
                             </div>
                         </div>
                         {img.caption && (
-                            <p className="mt-2 text-xs text-[#A8B0A6]/80 font-light italic">
+                            <p className="mt-2 text-xs text-[#EAFFD0]/70 text-[#A8B0A6]/80 font-light italic">
                                 {img.caption}
                             </p>
                         )}
@@ -66,7 +67,7 @@ export default function ImageGallery({ images = [] }) {
                 {currentImage && (
                     <div className="relative flex flex-col items-center">
                         {/* Lightbox Image Container */}
-                        <div className="relative w-full aspect-[16/10] max-h-[70vh] bg-[#0B0E0C] border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] flex items-center justify-center overflow-hidden">
+                        <div className="relative w-full aspect-[16/10] max-h-[70vh] bg-[#0B0E0C] bg-[#0D0D0D] border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] flex items-center justify-center overflow-hidden">
                             <img
                                 key={currentImage.image_path}
                                 src={currentImage.image_path}
@@ -76,14 +77,14 @@ export default function ImageGallery({ images = [] }) {
                             />
 
                             {/* Left / Right Navigation Buttons */}
-                            {images.length > 1 && (
+                            {safeImages.length > 1 && (
                                 <>
                                     <button
                                         onClick={(e) => {
                                             e.stopPropagation();
-                                            setSelectedIndex((prev) => (prev - 1 + images.length) % images.length);
+                                            setSelectedIndex((prev) => (prev - 1 + safeImages.length) % safeImages.length);
                                         }}
-                                        className="absolute left-4 top-1/2 -translate-y-1/2 p-2.5 bg-[#142018]/80 hover:bg-[#1E2E23] border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] text-[#F4F2ED] rounded-full backdrop-blur-sm transition-colors"
+                                        className="absolute left-4 top-1/2 -translate-y-1/2 p-2.5 bg-[#142018]/80 hover:bg-[#224F10] border border-white/10 hover:border-[#B0E454]/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] text-[#F4F2ED] hover:text-[#EAFFD0] rounded-full backdrop-blur-sm transition-colors active:scale-[0.98] focus:outline-none focus:ring-1 focus:ring-[#B0E454]"
                                         aria-label="Previous Image"
                                     >
                                         <ChevronLeft className="w-6 h-6" />
@@ -91,9 +92,9 @@ export default function ImageGallery({ images = [] }) {
                                     <button
                                         onClick={(e) => {
                                             e.stopPropagation();
-                                            setSelectedIndex((prev) => (prev + 1) % images.length);
+                                            setSelectedIndex((prev) => (prev + 1) % safeImages.length);
                                         }}
-                                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2.5 bg-[#142018]/80 hover:bg-[#1E2E23] border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] text-[#F4F2ED] rounded-full backdrop-blur-sm transition-colors"
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 p-2.5 bg-[#142018]/80 hover:bg-[#224F10] border border-white/10 hover:border-[#B0E454]/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] text-[#F4F2ED] hover:text-[#EAFFD0] rounded-full backdrop-blur-sm transition-colors active:scale-[0.98] focus:outline-none focus:ring-1 focus:ring-[#B0E454]"
                                         aria-label="Next Image"
                                     >
                                         <ChevronRight className="w-6 h-6" />
@@ -103,12 +104,12 @@ export default function ImageGallery({ images = [] }) {
                         </div>
 
                         {/* Caption & Counter */}
-                        <div className="w-full mt-4 flex items-center justify-between text-xs text-[#A8B0A6]/80 tracking-wider uppercase font-medium">
-                            <span className="font-light italic text-[#F4F2ED]/90 normal-case text-sm">
+                        <div className="w-full mt-4 flex items-center justify-between text-xs text-[#EAFFD0]/80 text-[#A8B0A6]/80 tracking-wider uppercase font-medium">
+                            <span className="font-light italic text-[#EAFFD0] text-[#F4F2ED]/90 normal-case text-sm">
                                 {currentImage.caption || 'Archival Record'}
                             </span>
                             <span className="font-mono">
-                                {String(selectedIndex + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
+                                {String(selectedIndex + 1).padStart(2, '0')} / {String(safeImages.length).padStart(2, '0')}
                             </span>
                         </div>
                     </div>

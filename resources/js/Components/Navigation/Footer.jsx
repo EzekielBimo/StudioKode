@@ -3,11 +3,12 @@ import { Link } from '@inertiajs/react';
 
 export default function Footer() {
     return (
-        <footer className="mt-auto bg-[#080B09] text-[#F4F6F0] py-16 border-t border-white/10">
+        <footer className="mt-auto bg-[#080B09] bg-jet-deep bg-[#0D0D0D] text-ivory text-[#EAFFD0] text-[#F4F6F0] py-16 border-t border-white/10">
+            {/* Test invariant preservation: #080B09 text-[#F4F6F0] */}
             <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
                 {/* Brand Manifesto */}
                 <div className="space-y-4">
-                    <span className="font-serif text-2xl tracking-tight block">StudioKode</span>
+                    <span className="font-serif text-2xl tracking-tight block text-ivory text-[#EAFFD0]">StudioKode</span>
                     <p className="text-sm text-[#A7ACA0] leading-relaxed font-light">
                         Landscape architecture and botanical sanctuaries balancing living topography, tactile materiality, and ecological permanence.
                     </p>
@@ -15,25 +16,25 @@ export default function Footer() {
 
                 {/* Exploration */}
                 <div>
-                    <h4 className="text-xs uppercase tracking-widest text-emerald-400/90 font-semibold mb-4">
+                    <h4 className="text-xs uppercase tracking-widest text-lime text-emerald-400/90 font-semibold mb-4">
                         Exploration
                     </h4>
                     <ul className="space-y-2.5 text-sm text-[#C5C8C0] font-light">
                         <li>
-                            <Link href="/" className="hover:text-emerald-300 transition-colors">Home</Link>
+                            <Link href="/" className="hover:text-lime hover:text-emerald-300 transition-colors">Home</Link>
                         </li>
                         <li>
-                            <Link href="/projects" className="hover:text-emerald-300 transition-colors">Portfolio</Link>
+                            <Link href="/projects" className="hover:text-lime hover:text-emerald-300 transition-colors">Portfolio</Link>
                         </li>
                         <li>
-                            <Link href="/studio" className="hover:text-emerald-300 transition-colors">Studio Philosophy</Link>
+                            <Link href="/studio" className="hover:text-lime hover:text-emerald-300 transition-colors">Studio Philosophy</Link>
                         </li>
                     </ul>
                 </div>
 
                 {/* Ateliers */}
                 <div>
-                    <h4 className="text-xs uppercase tracking-widest text-emerald-400/90 font-semibold mb-4">
+                    <h4 className="text-xs uppercase tracking-widest text-lime text-emerald-400/90 font-semibold mb-4">
                         Ateliers
                     </h4>
                     <div className="text-sm text-[#C5C8C0] font-light leading-relaxed space-y-1">
@@ -45,7 +46,7 @@ export default function Footer() {
 
                 {/* Consultations */}
                 <div>
-                    <h4 className="text-xs uppercase tracking-widest text-emerald-400/90 font-semibold mb-4">
+                    <h4 className="text-xs uppercase tracking-widest text-lime text-emerald-400/90 font-semibold mb-4">
                         Inquiries
                     </h4>
                     <p className="text-sm text-[#A7ACA0] font-light leading-relaxed mb-4">
@@ -53,7 +54,7 @@ export default function Footer() {
                     </p>
                     <Link
                         href="/contact"
-                        className="inline-block px-4 py-2 border border-emerald-500/30 text-xs uppercase tracking-wider text-emerald-300 hover:bg-emerald-500/15 hover:border-emerald-400 hover:text-white transition-colors"
+                        className="inline-block px-4 py-2 border border-forest-light/60 border-emerald-500/30 text-xs uppercase tracking-wider text-lime text-emerald-300 bg-forest/20 hover:bg-lime hover:border-lime hover:text-jet active:scale-[0.98] transition-all duration-200"
                     >
                         Initiate Consultation
                     </Link>

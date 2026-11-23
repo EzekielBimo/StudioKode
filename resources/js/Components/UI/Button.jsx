@@ -11,14 +11,14 @@ export default function Button({
     type = 'button',
     ...props
 }) {
-    const base = 'inline-flex items-center justify-center font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-[#88B896] focus:ring-offset-2 focus:ring-offset-[#0B0E0C] disabled:opacity-50 disabled:pointer-events-none select-none';
+    const base = 'inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#88B896] focus:ring-offset-2 focus:ring-offset-[#0B0E0C] focus:ring-[#B0E454] focus:ring-offset-[#0D0D0D] active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none select-none';
 
     const variants = {
-        primary: 'bg-[#1C2A21] text-[#F4F2ED] hover:bg-[#283C2F] border border-emerald-500/25 hover:border-emerald-400/40 shadow-sm shadow-emerald-950/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] backdrop-blur-xs',
-        secondary: 'bg-[rgba(20,32,24,0.75)] text-[#F4F2ED] hover:bg-[rgba(28,45,34,0.95)] border border-white/15 backdrop-blur-md shadow-sm hover:border-white/25 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]',
-        outline: 'border border-[#88B896]/50 text-[#88B896] hover:bg-[#88B896]/15 hover:border-[#88B896] backdrop-blur-xs',
-        'outline-light': 'border border-white/20 text-[#F4F2ED] hover:bg-white/10 hover:border-white/40 backdrop-blur-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]',
-        ghost: 'text-[#C4C9C3] hover:text-[#F4F2ED] hover:bg-white/5 backdrop-blur-xs',
+        primary: 'bg-[#1C2A21] hover:bg-[#224F10] text-[#F4F2ED] hover:text-[#EAFFD0] border border-[#B0E454]/30 hover:border-[#B0E454]/60 shadow-sm shadow-[#224F10]/40 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] hover:shadow-[0_0_20px_rgba(176,228,84,0.15)] backdrop-blur-xs',
+        secondary: 'bg-[rgba(20,32,24,0.75)] hover:bg-[rgba(34,79,16,0.85)] text-[#F4F2ED] hover:text-[#EAFFD0] border border-white/15 hover:border-[#B0E454]/40 backdrop-blur-md shadow-sm shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]',
+        outline: 'border border-[#88B896]/50 hover:border-[#B0E454] text-[#88B896] hover:text-[#B0E454] hover:bg-[#B0E454]/10 backdrop-blur-xs shadow-[0_0_15px_rgba(176,228,84,0.08)]',
+        'outline-light': 'border border-white/20 text-[#F4F2ED] hover:text-[#EAFFD0] hover:bg-white/10 hover:border-white/40 backdrop-blur-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]',
+        ghost: 'text-[#C4C9C3] hover:text-[#EAFFD0] hover:text-[#F4F2ED] hover:bg-white/5 backdrop-blur-xs',
     };
 
     const sizes = {

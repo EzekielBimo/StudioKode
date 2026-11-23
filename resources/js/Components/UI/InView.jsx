@@ -4,7 +4,7 @@ import { motion, useInView } from 'framer-motion';
 const defaultVariants = {
     hidden: {
         opacity: 0,
-        y: 24,
+        y: 20,
         filter: 'blur(4px)',
     },
     visible: {
