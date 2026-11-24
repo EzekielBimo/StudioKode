@@ -90,11 +90,11 @@ export default function Navbar() {
                 }`}
             >
                 <div className="w-full max-w-7xl mx-auto h-full flex items-center justify-between">
-                    {/* Left Section: Brand Logo & Typography + Subtle Divider */}
+                    {/* Left Section: Brand Logo (Standalone Emblem) + Subtle Divider */}
                     <div className="flex items-center">
                         <Link
                             href="/"
-                            className="group flex items-center gap-2.5 focus:outline-none"
+                            className="group flex items-center focus:outline-none"
                             aria-label="StudioKode Home"
                         >
                             {/* Official StudioKode brand emblem with organic topographic contours */}
@@ -109,9 +109,6 @@ export default function Navbar() {
                                     loading="eager"
                                 />
                             </picture>
-                            <span className="font-sans font-semibold text-sm sm:text-base tracking-tight text-ivory text-[#EAFFD0] text-[#F4F6F0] group-hover:text-lime group-hover:text-emerald-300 transition-colors">
-                                StudioKode
-                            </span>
                         </Link>
 
                         {/* Subtle Vertical Divider */}
