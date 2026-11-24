@@ -8,7 +8,20 @@ export default function Footer() {
             <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
                 {/* Brand Manifesto */}
                 <div className="space-y-4">
-                    <span className="font-serif text-2xl tracking-tight block text-ivory text-[#EAFFD0]">StudioKode</span>
+                    <div className="flex items-center gap-3">
+                        <picture className="flex items-center">
+                            <source srcSet="/assets/logo/kode-logo.webp" type="image/webp" />
+                            <img
+                                src="/assets/logo/kode-logo.png"
+                                alt="StudioKode Logo"
+                                className="h-8 sm:h-9 w-auto object-contain drop-shadow-[0_0_12px_rgba(176,228,84,0.25)] flex-shrink-0"
+                                width="1024"
+                                height="409"
+                                loading="lazy"
+                            />
+                        </picture>
+                        <span className="font-serif text-2xl tracking-tight block text-ivory text-[#EAFFD0]">StudioKode</span>
+                    </div>
                     <p className="text-sm text-[#A7ACA0] leading-relaxed font-light">
                         Landscape architecture and botanical sanctuaries balancing living topography, tactile materiality, and ecological permanence.
                     </p>

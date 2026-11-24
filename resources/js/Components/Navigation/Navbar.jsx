@@ -90,21 +90,25 @@ export default function Navbar() {
                 }`}
             >
                 <div className="w-full max-w-7xl mx-auto h-full flex items-center justify-between">
-                    {/* Left Section: Brand Icon & Typography + Subtle Divider */}
+                    {/* Left Section: Brand Logo & Typography + Subtle Divider */}
                     <div className="flex items-center">
                         <Link
                             href="/"
-                            className="group flex items-center gap-2 focus:outline-none"
+                            className="group flex items-center gap-2.5 focus:outline-none"
+                            aria-label="StudioKode Home"
                         >
-                            {/* Hexagonal geometric brand mark matching reference */}
-                            <svg
-                                className="w-4 h-4 text-white group-hover:text-lime group-hover:text-emerald-300 transition-colors flex-shrink-0"
-                                viewBox="0 0 24 24"
-                                fill="currentColor"
-                                aria-hidden="true"
-                            >
-                                <path d="M8.5 3a2 2 0 0 0-1.7 1L3.3 11a2 2 0 0 0 0 2l3.5 7a2 2 0 0 0 1.7 1h7a2 2 0 0 0 1.7-1l3.5-7a2 2 0 0 0 0-2l-3.5-7A2 2 0 0 0 15.5 3h-7zm2.5 4h2l3 5-3 5h-2l-3-5 3-5z" />
-                            </svg>
+                            {/* Official StudioKode brand emblem with organic topographic contours */}
+                            <picture className="flex items-center">
+                                <source srcSet="/assets/logo/kode-logo.webp" type="image/webp" />
+                                <img
+                                    src="/assets/logo/kode-logo.png"
+                                    alt="StudioKode Logo"
+                                    className="h-6 sm:h-7 w-auto object-contain transition-all duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_12px_rgba(176,228,84,0.45)] drop-shadow-[0_0_8px_rgba(176,228,84,0.2)] flex-shrink-0"
+                                    width="1024"
+                                    height="409"
+                                    loading="eager"
+                                />
+                            </picture>
                             <span className="font-sans font-semibold text-sm sm:text-base tracking-tight text-ivory text-[#EAFFD0] text-[#F4F6F0] group-hover:text-lime group-hover:text-emerald-300 transition-colors">
                                 StudioKode
                             </span>

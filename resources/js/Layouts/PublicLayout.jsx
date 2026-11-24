@@ -2,6 +2,7 @@ import React from 'react';
 import { usePage } from '@inertiajs/react';
 import Navbar from '../Components/Navigation/Navbar';
 import Footer from '../Components/Navigation/Footer';
+import LoadingScreen from '../Components/UI/LoadingScreen';
 
 export default function PublicLayout({ children }) {
     const { flash } = usePage().props;
@@ -10,6 +11,9 @@ export default function PublicLayout({ children }) {
 
     return (
         <div className="min-h-screen flex flex-col bg-jet bg-[#0D0D0D] bg-[#0B0E0C] text-ivory text-[#EAFFD0] text-[#F4F6F0] font-sans selection:bg-forest selection:text-lime">
+            {/* Initial motion.dev luxury architectural loading entrance */}
+            <LoadingScreen />
+
             {/* Test invariant preservation: bg-[#0B0E0C] text-[#F4F6F0] */}
             <Navbar />
 

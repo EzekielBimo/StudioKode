@@ -19,7 +19,7 @@ export default function ImageGallery({ images = [] }) {
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [selectedIndex, safeImages.length]);
+    }, [selectedIndex, images.length]);
 
     if (safeImages.length === 0) return null;
 

@@ -28,13 +28,19 @@
         <script data-page="app" type="application/json">{!! json_encode($page, JSON_HEX_TAG) !!}</script>
         <div id="app" data-page="{{ json_encode($page) }}">
             <!-- Instant Branded Loading Shell for StudioKode -->
-            <div id="app-skeleton" class="min-h-screen flex flex-col items-center justify-center bg-[#0B0E0C] text-[#F4F2ED] px-6 select-none" style="background-color: #0B0E0C; color: #F4F2ED;">
+            <div id="app-skeleton" class="min-h-screen flex flex-col items-center justify-center bg-[#0B0E0C] text-[#F4F2ED] px-6 select-none relative overflow-hidden" style="background-color: #0B0E0C; color: #F4F2ED;">
+                <!-- Ambient Topographic Glow Background -->
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
+                    <div class="w-[450px] h-[450px] rounded-full bg-gradient-to-tr from-[#142018]/60 via-[#224F10]/25 to-transparent blur-3xl"></div>
+                </div>
+
                 <div class="relative z-10 max-w-xl w-full flex flex-col items-center text-center space-y-6">
-                    <!-- StudioKode Logo Brand Mark -->
-                    <div class="w-16 h-16 rounded-2xl bg-[#142018] border border-[#23382B] flex items-center justify-center shadow-2xl mb-1" style="background-color: #142018; border: 1px solid #23382B;">
-                        <svg class="w-8 h-8 text-[#88B896] animate-pulse" style="color: #88B896;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                        </svg>
+                    <!-- StudioKode Official Logo Brand Mark -->
+                    <div class="relative flex items-center justify-center p-3 rounded-2xl bg-[#142018]/70 border border-[#23382B]/80 shadow-[0_0_35px_rgba(34,79,16,0.3)] mb-1" style="background-color: #142018; border: 1px solid #23382B;">
+                        <picture>
+                            <source srcset="/assets/logo/kode-logo.webp" type="image/webp">
+                            <img src="/assets/logo/kode-logo.png" alt="StudioKode" class="h-12 sm:h-14 w-auto object-contain animate-pulse drop-shadow-[0_0_15px_rgba(176,228,84,0.3)]" width="1024" height="409">
+                        </picture>
                     </div>
 
                     <div class="space-y-1.5">
@@ -48,13 +54,17 @@
 
                     <!-- Subtle pulse placeholders matching dark theme -->
                     <div class="w-full max-w-sm pt-4 space-y-3">
-                        <div class="h-6 bg-[#16221A] rounded-full w-4/5 mx-auto animate-pulse" style="height: 1.5rem; background-color: #16221A; border-radius: 9999px; width: 80%; margin: 0 auto;"></div>
-                        <div class="h-3.5 bg-[#142018] rounded-full w-3/5 mx-auto animate-pulse opacity-75" style="height: 0.875rem; background-color: #142018; border-radius: 9999px; width: 60%; margin: 0 auto;"></div>
+                        <div class="h-1.5 bg-[#16221A] rounded-full w-4/5 mx-auto overflow-hidden" style="height: 0.375rem; background-color: #16221A; border-radius: 9999px; width: 80%; margin: 0 auto;">
+                            <div class="h-full bg-gradient-to-r from-[#224F10] via-[#88B896] to-[#B0E454] w-2/3 animate-pulse rounded-full"></div>
+                        </div>
+                        <div class="text-[10px] tracking-[0.2em] font-mono text-[#88B896]/70 uppercase">
+                            Calibrating Living Topography
+                        </div>
                     </div>
 
-                    <div class="flex items-center justify-center gap-3 pt-3">
-                        <div class="h-9 w-28 bg-[#1C3024] rounded-lg animate-pulse" style="height: 2.25rem; width: 7rem; background-color: #1C3024; border-radius: 0.5rem;"></div>
-                        <div class="h-9 w-28 bg-[#16221A] rounded-lg animate-pulse" style="height: 2.25rem; width: 7rem; background-color: #16221A; border-radius: 0.5rem;"></div>
+                    <div class="flex items-center justify-center gap-3 pt-2">
+                        <div class="h-8 w-24 bg-[#1C3024]/60 border border-[#23382B]/40 rounded-lg animate-pulse" style="height: 2rem; width: 6rem; background-color: #1C3024; border-radius: 0.5rem;"></div>
+                        <div class="h-8 w-24 bg-[#16221A]/60 border border-[#23382B]/30 rounded-lg animate-pulse" style="height: 2rem; width: 6rem; background-color: #16221A; border-radius: 0.5rem;"></div>
                     </div>
                 </div>
             </div>
