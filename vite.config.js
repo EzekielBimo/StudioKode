@@ -6,6 +6,9 @@ export default defineConfig({
     server: {
         host: '127.0.0.1',
         cors: true,
+        watch: {
+            usePolling: true,
+        },
     },
     plugins: [
         laravel({

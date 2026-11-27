@@ -36,7 +36,7 @@ export default function HomeIndex({
                 <div className="relative max-w-4xl mx-auto text-center space-y-8 py-20">
                     <InView initial="visible">
                         <span className="inline-flex items-center gap-2 text-lime text-[#88B896] text-xs uppercase tracking-widest-plus font-mono font-medium drop-shadow-sm">
-                            <span className="w-1.5 h-1.5 rounded-full bg-lime animate-pulse" />
+                            <span className="w-1.5 h-1.5 bg-lime animate-pulse" />
                             StudioKode Landscape Architecture
                         </span>
                     </InView>

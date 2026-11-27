@@ -219,7 +219,7 @@
     ]
   },
   "resources/js/Pages/Home/Index.jsx": {
-    "file": "assets/Index-BjIaXwIB.js",
+    "file": "assets/Index-BsEaqlPF.js",
     "name": "Index",
     "src": "resources/js/Pages/Home/Index.jsx",
     "isDynamicEntry": true,
@@ -248,7 +248,7 @@
     ]
   },
   "resources/js/Pages/Projects/Show.jsx": {
-    "file": "assets/Show-BCR1VZVM.js",
+    "file": "assets/Show-CTd_LRIT.js",
     "name": "Show",
     "src": "resources/js/Pages/Projects/Show.jsx",
     "isDynamicEntry": true,
@@ -276,7 +276,7 @@
     ]
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-DNkojZj5.js",
+    "file": "assets/app-C8pz94kZ.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
