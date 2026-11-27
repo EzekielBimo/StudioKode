@@ -28,12 +28,14 @@ export default function HomeIndex({
                         loading="eager"
                         decoding="async"
                     />
+                    {/* Darkening layer for enhanced headline legibility */}
+                    <div className="absolute inset-0 bg-black/40 pointer-events-none" aria-hidden="true" />
                     {/* Atmospheric gradient overlay calibrated for image vibrancy & high text legibility */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-[#224F10]/15 to-[#0D0D0D]/95" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-[#224F10]/15 to-[#0D0D0D]/95 pointer-events-none" aria-hidden="true" />
                 </div>
                 <div className="relative max-w-4xl mx-auto text-center space-y-8 py-20">
                     <InView initial="visible">
-                        <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-forest/30 border border-lime/30 text-lime text-[#88B896] text-xs uppercase tracking-widest-plus font-mono font-medium backdrop-blur-xs shadow-[0_0_15px_rgba(176,228,84,0.12)]">
+                        <span className="inline-flex items-center gap-2 text-lime text-[#88B896] text-xs uppercase tracking-widest-plus font-mono font-medium drop-shadow-sm">
                             <span className="w-1.5 h-1.5 rounded-full bg-lime animate-pulse" />
                             StudioKode Landscape Architecture
                         </span>

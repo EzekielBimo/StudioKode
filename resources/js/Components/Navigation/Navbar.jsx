@@ -85,8 +85,8 @@ export default function Navbar() {
                 aria-label="Main Navigation"
                 className={`pointer-events-auto w-full transition-all duration-300 ease-in-out backdrop-blur-xl sm:backdrop-blur-2xl ${
                     scrolled
-                        ? 'max-w-4xl h-10 sm:h-11 px-3 sm:px-5 rounded-full bg-jet/85 bg-[#0D0D0D]/85 bg-[#0B0E0C]/85 shadow-[0_16px_36px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.15)] border border-white/10 border-forest/40'
-                        : 'max-w-full h-14 sm:h-16 px-4 sm:px-6 lg:px-8 rounded-none bg-jet/80 bg-[#0D0D0D]/80 bg-[#0B0E0C]/80 shadow-[inset_0_-1px_0_rgba(255,255,255,0.06)] border-b border-white/10'
+                        ? 'max-w-4xl h-10 sm:h-11 px-3 sm:px-5 rounded-full bg-jet/75 bg-[#0D0D0D]/75 bg-[#0B0E0C]/75 shadow-[0_16px_36px_rgba(0,0,0,0.6),inset_0_1px_1px_rgba(255,255,255,0.15)] border border-white/10 border-forest/40'
+                        : 'max-w-full h-14 sm:h-16 px-4 sm:px-6 lg:px-8 rounded-none bg-jet/75 bg-[#0D0D0D]/75 bg-[#0B0E0C]/75 shadow-[inset_0_-1px_0_rgba(255,255,255,0.06)] border-b border-white/10'
                 }`}
             >
                 <div className="w-full max-w-7xl mx-auto h-full flex items-center justify-between">
