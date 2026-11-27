@@ -14,6 +14,8 @@ export default function LoadingScreen({ onComplete }) {
         return true;
     });
 
+    // Tracks final DOM unmount after AnimatePresence exit transition finishes.
+    const [isExited, setIsExited] = useState(!isVisible);
     const [progress, setProgress] = useState(0);
     const [stageIndex, setStageIndex] = useState(0);
 
@@ -33,55 +35,76 @@ export default function LoadingScreen({ onComplete }) {
         if (prefersReduced) {
             hasLoadedInSession = true;
             setIsVisible(false);
+            setIsExited(true);
+            if (onComplete) {
+                onComplete();
+            }
             return;
         }
 
+        const startTime = Date.now();
+        const TOTAL_DURATION = 5000; // Total 5.0 seconds loading screen duration
+        const STUCK_START = 1600;    // Smooth ramp reaching 80% at 1.6s
+        const STUCK_END = 3600;      // Stuck at 80% for 2.0 seconds (1.6s to 3.6s)
+        const COMPLETE_TIME = 4500;  // Advance from 80% to 100% by 4.5s (0.9s sprint)
+
         const interval = setInterval(() => {
-            setProgress((prev) => {
-                if (prev >= 100) {
-                    clearInterval(interval);
-                    return 100;
-                }
-                // Non-linear organic progress curve: swift initial reveal, stately completion
-                const remaining = 100 - prev;
-                const increment = Math.max(1, Math.min(4, Math.ceil(remaining * 0.11)));
-                const next = Math.min(100, prev + increment);
+            const elapsed = Date.now() - startTime;
 
-                if (next < 28) {
-                    setStageIndex(0);
-                } else if (next < 62) {
-                    setStageIndex(1);
-                } else if (next < 88) {
-                    setStageIndex(2);
-                } else {
-                    setStageIndex(3);
-                }
+            if (elapsed >= TOTAL_DURATION) {
+                setProgress(100);
+                setStageIndex(3);
+                clearInterval(interval);
+                setIsVisible(false);
+                return;
+            }
 
-                return next;
-            });
-        }, 30);
+            let nextProgress = 0;
+            if (elapsed < STUCK_START) {
+                // Phase 1: Smooth organic ramp to 80% (0ms - 1600ms)
+                const ratio = elapsed / STUCK_START;
+                const eased = 1 - Math.pow(1 - ratio, 2.2);
+                nextProgress = Math.min(80, Math.round(80 * eased));
+            } else if (elapsed < STUCK_END) {
+                // Phase 2: Intentionally paused / stuck at 80% (1600ms - 3600ms)
+                nextProgress = 80;
+            } else if (elapsed < COMPLETE_TIME) {
+                // Phase 3: Resume swiftly from 80% to 100% (3600ms - 4500ms)
+                const ratio = (elapsed - STUCK_END) / (COMPLETE_TIME - STUCK_END);
+                const eased = Math.pow(ratio, 0.9);
+                nextProgress = Math.min(100, Math.round(80 + 20 * eased));
+            } else {
+                // Phase 4: Savor completion at 100% before exit transition (4500ms - 5000ms)
+                nextProgress = 100;
+            }
+
+            setProgress((prev) => (prev !== nextProgress ? nextProgress : prev));
+
+            let nextStage = 0;
+            if (nextProgress < 28) {
+                nextStage = 0;
+            } else if (nextProgress < 58) {
+                nextStage = 1;
+            } else if (nextProgress < 85) {
+                nextStage = 2;
+            } else {
+                nextStage = 3;
+            }
+            setStageIndex((prev) => (prev !== nextStage ? nextStage : prev));
+        }, 25);
 
         return () => clearInterval(interval);
     }, [isVisible]);
 
-    useEffect(() => {
-        if (progress === 100 && isVisible) {
-            const timer = setTimeout(() => {
-                hasLoadedInSession = true;
-                setIsVisible(false);
-            }, 320);
-            return () => clearTimeout(timer);
-        }
-    }, [progress, isVisible]);
-
     const handleExitComplete = () => {
         hasLoadedInSession = true;
+        setIsExited(true);
         if (onComplete) {
             onComplete();
         }
     };
 
-    if (!isVisible) {
+    if (isExited) {
         return null;
     }
 
@@ -273,8 +296,9 @@ export default function LoadingScreen({ onComplete }) {
                             <div className="relative h-[2.5px] w-full bg-[#16221A] rounded-full overflow-hidden border border-white/5">
                                 <motion.div
                                     className="h-full bg-gradient-to-r from-[#224F10] via-[#88B896] to-[#B0E454] rounded-full shadow-[0_0_12px_rgba(176,228,84,0.75)]"
-                                    style={{ width: `${progress}%` }}
-                                    transition={{ ease: 'easeOut', duration: 0.08 }}
+                                    initial={{ width: '0%' }}
+                                    animate={{ width: `${progress}%` }}
+                                    transition={{ ease: 'easeOut', duration: 0.1 }}
                                 />
                             </div>
 
